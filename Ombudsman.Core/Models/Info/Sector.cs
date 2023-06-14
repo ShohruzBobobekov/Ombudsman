@@ -1,5 +1,8 @@
-﻿namespace Ombudsman.Core.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Ombudsman.Core.Models;
+
+[Table("info_sector", Schema = "public")]
 public class Sector : Auditable
 {
     public string OrderNumber { get; set; }

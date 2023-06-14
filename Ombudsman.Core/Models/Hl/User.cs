@@ -1,5 +1,8 @@
-﻿namespace Ombudsman.Core.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Ombudsman.Core.Models;
+
+[Table("hl_user", Schema = "public")]
 public class User : Auditable
 {
     public string Username { get; set; }

@@ -2,6 +2,7 @@
 
 namespace Ombudsman.Core.Models;
 
+[Table("doc_information_letter", Schema = "public")]
 public class InformationLetter : Auditable
 {
     public string? DocNumber { get; set; }
