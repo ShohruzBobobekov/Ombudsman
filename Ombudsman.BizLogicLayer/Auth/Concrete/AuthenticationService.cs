@@ -1,129 +1,139 @@
-﻿//using System.ComponentModel.DataAnnotations;
-//using System.Security.Claims;
-//using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
-//namespace Ombudsman.BizLogicLayer.Auth;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
-//public class AuthenticationService : IAuthenticationService
-//{
-//    private readonly IUserRepository userRepository;
-//    private readonly IJwtTokenHandler jwtTokenHandler;
-//    private readonly IPasswordHasher passwordHasher;
-//    private readonly JwtOption jwtOptions;
+using Ombudsman.Core.Configurations;
+using Ombudsman.Core.Exceptions;
+using Ombudsman.DataLayer.Repositories;
 
-//    public AuthenticationService(
-//        IUserRepository userRepository,
-//        IJwtTokenHandler jwtTokenHandler,
-//        IPasswordHasher passwordHasher,
-//        IOptions<JwtOption> options)
-//    {
-//        this.userRepository=userRepository;
-//        this.jwtTokenHandler=jwtTokenHandler;
-//        this.passwordHasher=passwordHasher;
-//        jwtOptions=options.Value;
-//    }
+using ValidationException = Ombudsman.Core.Exceptions.ValidationException;
 
-//    public async Task<TokenDto> LoginAsync(
-//        AuthenticationDto authenticationDto)
-//    {
-//        var user = await userRepository
-//            .SelectByIdWithDetailsAsync(
-//                expression: user => user.Email==authenticationDto.email,
-//                includes: Array.Empty<string>());
+namespace Ombudsman.BizLogicLayer.Auth;
 
-//        if(user is null)
-//        {
-//            throw new NotFoundException("User with given credentials not found");
-//        }
+public class AuthenticationService : IAuthenticationService
+{
+    private readonly IUserRepository userRepository;
+    private readonly IJwtTokenHandler jwtTokenHandler;
+    private readonly IPasswordHasher passwordHasher;
+    private readonly JwtOption jwtOptions;
 
-//        if(!passwordHasher.Verify(
-//            hash: user.PasswordHash,
-//            password: authenticationDto.password,
-//            salt: user.Salt))
-//        {
-//            throw new ValidationException("Username or password is not valid");
-//        }
+    public AuthenticationService(
+        IUserRepository userRepository,
+        IJwtTokenHandler jwtTokenHandler,
+        IPasswordHasher passwordHasher,
+        IOptions<JwtOption> options)
+    {
+        this.userRepository=userRepository;
+        this.jwtTokenHandler=jwtTokenHandler;
+        this.passwordHasher=passwordHasher;
+        jwtOptions=options.Value;
+    }
 
-//        string refreshToken = jwtTokenHandler
-//            .GenerateRefreshToken();
+    public async Task<TokenDto> LoginAsync(
+        AuthenticationDto authenticationDto)
+    {
+        var user = await userRepository
+            .SelectByIdWithDetailsAsync(
+                expression: user => user.Email==authenticationDto.email,
+                includes: Array.Empty<string>());
 
-//        user.UpdateRefreshToken(refreshToken);
+        if(user is null)
+        {
+            throw new NotFoundException("User with given credentials not found");
+        }
 
-//        var updatedUser = await userRepository
-//            .UpdateAsync(user);
+        if(!passwordHasher.Verify(
+            hash: user.PasswordHash,
+            password: authenticationDto.password,
+            salt: user.Salt))
+        {
+            throw new ValidationException("Username or password is not valid");
+        }
 
-//        var accessToken = jwtTokenHandler
-//            .GenerateAccessToken(updatedUser);
+        string refreshToken = jwtTokenHandler
+            .GenerateRefreshToken();
 
-//        return new TokenDto(
-//            accessToken: new JwtSecurityTokenHandler().WriteToken(accessToken),
-//            refreshToken: user.RefreshToken,
-//            expireDate: accessToken.ValidTo);
-//    }
+        user.UpdateRefreshToken(refreshToken);
 
-//    public async Task<TokenDto> RefreshTokenAsync(
-//        RefreshTokenDto refreshTokenDto)
-//    {
-//        var claimsPrincipal = GetPrincipalFromExpiredToken(
-//            refreshTokenDto.accessToken);
+        var updatedUser = await userRepository
+            .UpdateAsync(user);
 
-//        var userId = claimsPrincipal.FindFirstValue(CustomClaimNames.Id);
+        var accessToken = jwtTokenHandler
+            .GenerateAccessToken(updatedUser);
 
-//        var storageUser = await userRepository
-//            .SelectByIdAsync(Guid.Parse(userId));
+        return new TokenDto(
+            accessToken: new JwtSecurityTokenHandler().WriteToken(accessToken),
+            refreshToken: user.RefreshToken,
+            expireDate: accessToken.ValidTo);
+    }
 
-//        if(!storageUser.RefreshToken.Equals(refreshTokenDto.refreshToken))
-//        {
-//            throw new ValidationException("Refresh token is not valid");
-//        }
+    public async Task<TokenDto> RefreshTokenAsync(
+        RefreshTokenDto refreshTokenDto)
+    {
+        var claimsPrincipal = GetPrincipalFromExpiredToken(
+            refreshTokenDto.accessToken);
 
-//        if(storageUser.RefreshTokenExpireDate<=DateTime.UtcNow)
-//        {
-//            throw new ValidationException("Refresh token has already been expired");
-//        }
+        var userId = claimsPrincipal.FindFirstValue(CustomClaimNames.Id);
 
-//        var newAccessToken = jwtTokenHandler
-//            .GenerateAccessToken(storageUser);
+        var storageUser = await userRepository
+            .SelectByIdAsync(int.Parse(userId));
 
-//        return new TokenDto(
-//            accessToken: new JwtSecurityTokenHandler()
-//                .WriteToken(newAccessToken),
+        if(!storageUser.RefreshToken.Equals(refreshTokenDto.refreshToken))
+        {
+            throw new ValidationException("Refresh token is not valid");
+        }
 
-//            refreshToken: storageUser.RefreshToken,
-//            expireDate: newAccessToken.ValidTo);
-//    }
+        if(storageUser.RefreshTokenExpireDate <= DateTime.UtcNow)
+        {
+            throw new ValidationException("Refresh token has already been expired");
+        }
 
-//    private ClaimsPrincipal GetPrincipalFromExpiredToken(
-//        string accessToken)
-//    {
-//        var tokenValidationParameters = new TokenValidationParameters
-//        {
-//            ValidateAudience=true,
-//            ValidAudience=jwtOptions.Audience,
-//            ValidateIssuer=true,
-//            ValidIssuer=jwtOptions.Issuer,
-//            ValidateIssuerSigningKey=true,
-//            ValidateLifetime=false,
+        var newAccessToken = jwtTokenHandler
+            .GenerateAccessToken(storageUser);
 
-//            IssuerSigningKey=new SymmetricSecurityKey(
-//                Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
-//        };
+        return new TokenDto(
+            accessToken: new JwtSecurityTokenHandler()
+                .WriteToken(newAccessToken),
 
-//        var tokenHandler = new JwtSecurityTokenHandler();
+            refreshToken: storageUser.RefreshToken,
+            expireDate: newAccessToken.ValidTo);
+    }
 
-//        var principal = tokenHandler.ValidateToken(
-//            token: accessToken,
-//            validationParameters: tokenValidationParameters,
-//            validatedToken: out SecurityToken securityToken);
+    private ClaimsPrincipal GetPrincipalFromExpiredToken(
+        string accessToken)
+    {
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience=true,
+            ValidAudience=jwtOptions.Audience,
+            ValidateIssuer=true,
+            ValidIssuer=jwtOptions.Issuer,
+            ValidateIssuerSigningKey=true,
+            ValidateLifetime=false,
 
-//        var jwtSecurityToken = securityToken as JwtSecurityToken;
+            IssuerSigningKey=new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+        };
 
-//        if(jwtSecurityToken==null||!jwtSecurityToken.Header.Alg.Equals(
-//            SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-//        {
-//            throw new ValidationException("Invalid token");
-//        }
+        var tokenHandler = new JwtSecurityTokenHandler();
 
-//        return principal;
-//    }
-//}
+        var principal = tokenHandler.ValidateToken(
+            token: accessToken,
+            validationParameters: tokenValidationParameters,
+            validatedToken: out SecurityToken securityToken);
+
+        var jwtSecurityToken = securityToken as JwtSecurityToken;
+
+        if(jwtSecurityToken==null||!jwtSecurityToken.Header.Alg.Equals(
+            SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+        {
+            throw new ValidationException("Invalid token");
+        }
+
+        return principal;
+    }
+}

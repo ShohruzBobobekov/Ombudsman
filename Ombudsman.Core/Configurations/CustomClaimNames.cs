@@ -3,6 +3,8 @@
 public class CustomClaimNames
 {
     public const string Email = "email";
-    public const string Role = "role";
+    public const string RoleId = "roleId";
     public const string Id = "id";
+    public const string OrganizationId = "organizationId";
+    public const string LanguageId = "languageId";
 }

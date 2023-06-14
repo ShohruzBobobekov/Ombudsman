@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using Ombudsman.BizLogicLayer.Auth;
 
 namespace Ombudsman.Controllers;
 
-    public class AuthController : ControllerBase
+[Route("api/auth/[action]")]
+[ApiController]
+public class AuthController : ControllerBase
 {
     private readonly IAuthenticationService authenticationService;
 
