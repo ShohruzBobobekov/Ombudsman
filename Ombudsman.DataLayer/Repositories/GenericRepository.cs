@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace Ombudsman.DataLayer.Repositories;

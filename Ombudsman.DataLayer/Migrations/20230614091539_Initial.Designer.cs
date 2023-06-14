@@ -12,7 +12,7 @@ using Ombudsman.DataLayer;
 namespace Ombudsman.DataLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230614005918_Initial")]
+    [Migration("20230614091539_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,12 +53,12 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("state_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_document_importances");
+                        .HasName("pk_info_document_importance");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_document_importances_state_id");
+                        .HasDatabaseName("ix_info_document_importance_state_id");
 
-                    b.ToTable("document_importances", (string)null);
+                    b.ToTable("info_document_importance", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealization", b =>
@@ -103,6 +103,10 @@ namespace Ombudsman.DataLayer.Migrations
                     b.Property<int>("DocumentTypeId")
                         .HasColumnType("integer")
                         .HasColumnName("document_type_id");
+
+                    b.Property<Guid?>("FileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("file_id");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -166,24 +170,27 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("updated_user_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_document_realizations");
+                        .HasName("pk_doc_document_realization");
 
                     b.HasIndex("DocumentTypeId")
-                        .HasDatabaseName("ix_document_realizations_document_type_id");
+                        .HasDatabaseName("ix_doc_document_realization_document_type_id");
+
+                    b.HasIndex("FileId")
+                        .HasDatabaseName("ix_doc_document_realization_file_id");
 
                     b.HasIndex("ImportanceId")
-                        .HasDatabaseName("ix_document_realizations_importance_id");
+                        .HasDatabaseName("ix_doc_document_realization_importance_id");
 
                     b.HasIndex("InitiativeTypeId")
-                        .HasDatabaseName("ix_document_realizations_initiative_type_id");
+                        .HasDatabaseName("ix_doc_document_realization_initiative_type_id");
 
                     b.HasIndex("ResponsibleSectorId")
-                        .HasDatabaseName("ix_document_realizations_responsible_sector_id");
+                        .HasDatabaseName("ix_doc_document_realization_responsible_sector_id");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_document_realizations_state_id");
+                        .HasDatabaseName("ix_doc_document_realization_state_id");
 
-                    b.ToTable("document_realizations", (string)null);
+                    b.ToTable("doc_document_realization", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealizationTable", b =>
@@ -232,12 +239,12 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("visa_issuer_position");
 
                     b.HasKey("Id")
-                        .HasName("pk_document_realization_tables");
+                        .HasName("pk_doc_document_realization_table");
 
                     b.HasIndex("OwnerId")
-                        .HasDatabaseName("ix_document_realization_tables_owner_id");
+                        .HasDatabaseName("ix_doc_document_realization_table_owner_id");
 
-                    b.ToTable("document_realization_tables", (string)null);
+                    b.ToTable("doc_document_realization_table", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealizerType", b =>
@@ -269,12 +276,12 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("state_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_document_realizer_types");
+                        .HasName("pk_enum_document_realizer_type");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_document_realizer_types_state_id");
+                        .HasDatabaseName("ix_enum_document_realizer_type_state_id");
 
-                    b.ToTable("document_realizer_types", (string)null);
+                    b.ToTable("enum_document_realizer_type", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentType", b =>
@@ -306,37 +313,35 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("state_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_document_types");
+                        .HasName("pk_enum_document_type");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_document_types_state_id");
+                        .HasDatabaseName("ix_enum_document_type_state_id");
 
-                    b.ToTable("document_types", (string)null);
+                    b.ToTable("enum_document_type", "public");
                 });
 
-            modelBuilder.Entity("Ombudsman.Core.Models.Enum.State", b =>
+            modelBuilder.Entity("Ombudsman.Core.Models.FileModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("FullName")
+                    b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("full_name");
+                        .HasColumnName("extension");
 
-                    b.Property<string>("ShortName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("short_name");
+                        .HasColumnName("name");
 
                     b.HasKey("Id")
-                        .HasName("pk_states");
+                        .HasName("pk_sys_file");
 
-                    b.ToTable("states", (string)null);
+                    b.ToTable("sys_file", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.GovernmentOrganizationType", b =>
@@ -368,12 +373,12 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("state_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_government_organization_types");
+                        .HasName("pk_enum_government_organization_type");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_government_organization_types_state_id");
+                        .HasDatabaseName("ix_enum_government_organization_type_state_id");
 
-                    b.ToTable("government_organization_types", (string)null);
+                    b.ToTable("enum_government_organization_type", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.InformationLetter", b =>
@@ -449,13 +454,13 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("updated_user_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_information_letters");
+                        .HasName("pk_doc_information_letter");
 
                     b.HasIndex("OwnerId")
                         .IsUnique()
-                        .HasDatabaseName("ix_information_letters_owner_id");
+                        .HasDatabaseName("ix_doc_information_letter_owner_id");
 
-                    b.ToTable("information_letters", (string)null);
+                    b.ToTable("doc_information_letter", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.InformationLetterTable", b =>
@@ -504,12 +509,12 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("visa_issuer_position");
 
                     b.HasKey("Id")
-                        .HasName("pk_information_letter_tables");
+                        .HasName("pk_doc_information_letter_table");
 
                     b.HasIndex("OwnerId")
-                        .HasDatabaseName("ix_information_letter_tables_owner_id");
+                        .HasDatabaseName("ix_doc_information_letter_table_owner_id");
 
-                    b.ToTable("information_letter_tables", (string)null);
+                    b.ToTable("doc_information_letter_table", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.InitiativeType", b =>
@@ -532,9 +537,9 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("short_name");
 
                     b.HasKey("Id")
-                        .HasName("pk_initiative_types");
+                        .HasName("pk_enum_initiative_type");
 
-                    b.ToTable("initiative_types", (string)null);
+                    b.ToTable("enum_initiative_type", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.Language", b =>
@@ -557,9 +562,9 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("short_name");
 
                     b.HasKey("Id")
-                        .HasName("pk_languages");
+                        .HasName("pk_enum_language");
 
-                    b.ToTable("languages", (string)null);
+                    b.ToTable("enum_language", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.Organization", b =>
@@ -614,18 +619,18 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("updated_user_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_organizations");
+                        .HasName("pk_info_organization");
 
                     b.HasIndex("GovernmentOrganizationTypeId")
-                        .HasDatabaseName("ix_organizations_government_organization_type_id");
+                        .HasDatabaseName("ix_info_organization_government_organization_type_id");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_organizations_state_id");
+                        .HasDatabaseName("ix_info_organization_state_id");
 
                     b.HasIndex("SuperiorOrganizationId")
-                        .HasDatabaseName("ix_organizations_superior_organization_id");
+                        .HasDatabaseName("ix_info_organization_superior_organization_id");
 
-                    b.ToTable("organizations", (string)null);
+                    b.ToTable("info_organization", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.Sector", b =>
@@ -678,12 +683,37 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("updated_user_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_sectors");
+                        .HasName("pk_info_sector");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_sectors_state_id");
+                        .HasDatabaseName("ix_info_sector_state_id");
 
-                    b.ToTable("sectors", (string)null);
+                    b.ToTable("info_sector", "public");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("full_name");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("short_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_state");
+
+                    b.ToTable("enum_state", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.StateProgram", b =>
@@ -715,12 +745,12 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("state_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_state_programs");
+                        .HasName("pk_info_state_program");
 
                     b.HasIndex("StateId")
-                        .HasDatabaseName("ix_state_programs_state_id");
+                        .HasDatabaseName("ix_info_state_program_state_id");
 
-                    b.ToTable("state_programs", (string)null);
+                    b.ToTable("info_state_program", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.User", b =>
@@ -752,6 +782,11 @@ namespace Ombudsman.DataLayer.Migrations
                     b.Property<string>("LanguageId")
                         .HasColumnType("text")
                         .HasColumnName("language_id");
+
+                    b.Property<int?>("OrganizationId")
+                        .IsRequired()
+                        .HasColumnType("integer")
+                        .HasColumnName("organization_id");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -786,19 +821,22 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnName("username");
 
                     b.HasKey("Id")
-                        .HasName("pk_users");
+                        .HasName("pk_hl_user");
 
-                    b.ToTable("users", (string)null);
+                    b.HasIndex("OrganizationId")
+                        .HasDatabaseName("ix_hl_user_organization_id");
+
+                    b.ToTable("hl_user", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentImportance", b =>
                 {
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_importances_states_state_id");
+                        .HasConstraintName("fk_info_document_importance_enum_state_state_id");
 
                     b.Navigation("State");
                 });
@@ -810,37 +848,44 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasForeignKey("DocumentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realizations_document_types_document_type_id");
+                        .HasConstraintName("fk_doc_document_realization_enum_document_type_document_type_id");
+
+                    b.HasOne("Ombudsman.Core.Models.FileModel", "FileModel")
+                        .WithMany()
+                        .HasForeignKey("FileId")
+                        .HasConstraintName("fk_doc_document_realization_sys_file_file_id");
 
                     b.HasOne("Ombudsman.Core.Models.DocumentImportance", "Importance")
                         .WithMany()
                         .HasForeignKey("ImportanceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realizations_document_importances_importance_id");
+                        .HasConstraintName("fk_doc_document_realization_info_document_importance_importanc");
 
                     b.HasOne("Ombudsman.Core.Models.InitiativeType", "InitiativeType")
                         .WithMany()
                         .HasForeignKey("InitiativeTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realizations_initiative_types_initiative_type_id");
+                        .HasConstraintName("fk_doc_document_realization_enum_initiative_type_initiative_typ");
 
                     b.HasOne("Ombudsman.Core.Models.Sector", "ResponsibleSector")
                         .WithMany()
                         .HasForeignKey("ResponsibleSectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realizations_sectors_responsible_sector_id");
+                        .HasConstraintName("fk_doc_document_realization_info_sector_responsible_sector_id");
 
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realizations_states_state_id");
+                        .HasConstraintName("fk_doc_document_realization_enum_state_state_id");
 
                     b.Navigation("DocumentType");
+
+                    b.Navigation("FileModel");
 
                     b.Navigation("Importance");
 
@@ -858,43 +903,43 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realization_tables_document_realizations_owner_id");
+                        .HasConstraintName("fk_doc_document_realization_table_doc_document_realization_own");
 
                     b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealizerType", b =>
                 {
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_realizer_types_states_state_id");
+                        .HasConstraintName("fk_enum_document_realizer_type_enum_state_state_id");
 
                     b.Navigation("State");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentType", b =>
                 {
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_document_types_states_state_id");
+                        .HasConstraintName("fk_enum_document_type_enum_state_state_id");
 
                     b.Navigation("State");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.GovernmentOrganizationType", b =>
                 {
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_government_organization_types_states_state_id");
+                        .HasConstraintName("fk_enum_government_organization_type_enum_state_state_id");
 
                     b.Navigation("State");
                 });
@@ -906,7 +951,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasForeignKey("Ombudsman.Core.Models.InformationLetter", "OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_information_letters_document_realizations_owner_id");
+                        .HasConstraintName("fk_doc_information_letter_doc_document_realization_owner_id");
 
                     b.Navigation("Owner");
                 });
@@ -918,7 +963,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_information_letter_tables_information_letters_owner_id");
+                        .HasConstraintName("fk_doc_information_letter_table_doc_information_letter_owner_id");
 
                     b.Navigation("Owner");
                 });
@@ -930,21 +975,21 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasForeignKey("GovernmentOrganizationTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_organizations_government_organization_types_government_organ");
+                        .HasConstraintName("fk_info_organization_enum_government_organization_type_governm");
 
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_organizations_states_state_id");
+                        .HasConstraintName("fk_info_organization_enum_state_state_id");
 
                     b.HasOne("Ombudsman.Core.Models.Organization", "SuperiorOrganization")
                         .WithMany()
                         .HasForeignKey("SuperiorOrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_organizations_organizations_superior_organization_id");
+                        .HasConstraintName("fk_info_organization_info_organization_superior_organization_id");
 
                     b.Navigation("GovernmentOrganizationType");
 
@@ -955,26 +1000,38 @@ namespace Ombudsman.DataLayer.Migrations
 
             modelBuilder.Entity("Ombudsman.Core.Models.Sector", b =>
                 {
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_sectors_states_state_id");
+                        .HasConstraintName("fk_info_sector_enum_state_state_id");
 
                     b.Navigation("State");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.StateProgram", b =>
                 {
-                    b.HasOne("Ombudsman.Core.Models.Enum.State", "State")
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_state_programs_states_state_id");
+                        .HasConstraintName("fk_info_state_program_enum_state_state_id");
 
                     b.Navigation("State");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.User", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Organization", "UserOrganization")
+                        .WithMany("Users")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_hl_user_info_organization_organization_id");
+
+                    b.Navigation("UserOrganization");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealization", b =>
@@ -988,6 +1045,11 @@ namespace Ombudsman.DataLayer.Migrations
             modelBuilder.Entity("Ombudsman.Core.Models.InformationLetter", b =>
                 {
                     b.Navigation("Tables");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.Organization", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

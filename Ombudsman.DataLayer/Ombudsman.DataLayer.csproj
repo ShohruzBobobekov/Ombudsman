@@ -19,5 +19,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Ombudsman.Core\Ombudsman.Core.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Repositories\Hl\" />
+  </ItemGroup>
 
 </Project>

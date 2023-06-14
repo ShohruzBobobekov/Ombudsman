@@ -2,7 +2,7 @@
 
 namespace Ombudsman.Core.Models;
 
-[Table("doc_information_letter", Schema = "public")]
+[Table("doc_information_letter_table", Schema = "public")]
 public class InformationLetterTable
 {
     public int Id { get; set; }
@@ -14,8 +14,5 @@ public class InformationLetterTable
     public DateOnly DateEnteredForVisa { get; set; }
     public DateOnly DateOfVisaIssuance { get; set; }
     public int OwnerId { get; set; }
-
-    [ForeignKey(nameof(OwnerId))]
-    [InverseProperty(nameof(InformationLetter.Tables))]
     public InformationLetter Owner { get; set; }
 }

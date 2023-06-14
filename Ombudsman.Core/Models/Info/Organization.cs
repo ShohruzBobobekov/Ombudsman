@@ -9,4 +9,5 @@ public class Organization : Auditable
     public bool IsGrouper { get; set; }
     public Organization SuperiorOrganization { get; set; }
     public State State { get; set; }
+    public ICollection<User> Users { get; set; }
 }

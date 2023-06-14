@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using Ombudsman.Core.Models;
+using Ombudsman.Core.Models.Enum;
 
 namespace Ombudsman.DataLayer;
 
@@ -19,11 +20,18 @@ public class AppDbContext : DbContext
 
     #region Enum
     public virtual DbSet<DocumentRealizerType> DocumentRealizerTypes { get; set; }
+    public virtual DbSet<DocumentRealizerTypeTranslate> DocumentRealizerTypeTranslates { get; set; }
     public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+    public virtual DbSet<DocumentTypeTranslate> DocumentTypeTranslates { get; set; }
     public virtual DbSet<GovernmentOrganizationType> GovernmentOrganizationTypes { get; set; }
+    public virtual DbSet<GovernmentOrganizationTypeTranslate> GovernmentOrganizationTypeTranslates { get; set; }
     public virtual DbSet<InitiativeType> InitiativeTypes { get; set; }
+    public virtual DbSet<InitiativeTypeTranslate> InitiativeTypeTranslates { get; set; }
     public virtual DbSet<Language> Languages { get; set; }
     public virtual DbSet<State> States { get; set; }
+    public virtual DbSet<StateTranslate> StateTranslates { get; set; }
+    public virtual DbSet<DocumentImportance> DocumentImportances { get; set; }
+    public virtual DbSet<DocumentImportanceTranslate> DocumentImportanceTranslates { get; set; }
     #endregion
 
     #region Hl
@@ -31,7 +39,6 @@ public class AppDbContext : DbContext
     #endregion
 
     #region Info
-    public virtual DbSet<DocumentImportance> DocumentImportances { get; set; }
     public virtual DbSet<Organization> Organizations { get; set; }
     public virtual DbSet<Sector> Sectors { get; set; }
     public virtual DbSet<StateProgram> StatePrograms { get; set; }

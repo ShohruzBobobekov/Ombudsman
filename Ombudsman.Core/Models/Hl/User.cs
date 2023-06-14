@@ -11,5 +11,9 @@ public class User : Auditable
     public string Password { get; set; }
     public string PasswordSalt { get; set; }
     public string? LanguageId { get; set; }
+    public int? OrganizationId { get; set; }
+    [ForeignKey(nameof(OrganizationId))]
+    [InverseProperty(nameof(Organization.Users))]
+    public Organization UserOrganization { get; set; }
 
 }
