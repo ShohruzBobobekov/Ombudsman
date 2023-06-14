@@ -1,5 +1,7 @@
-﻿namespace Ombudsman.Core.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Ombudsman.Core.Models;
+[Table("doc_document_realization",Schema = "public")]
 public class DocumentRealization : Auditable
 {
     public string DocumentSpeciality { get; set; }

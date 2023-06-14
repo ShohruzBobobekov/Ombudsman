@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,10 +27,10 @@ public static class Dependencies
             options.UseNpgsql(
                 connectionString: connectionString,
                 options => options.EnableRetryOnFailure())
-            .UseSnakeCaseNamingConvention();
+                    .UseSnakeCaseNamingConvention();
         });
 
-        
+
 
         RegisterRepositories(services);
     }
@@ -44,6 +38,6 @@ public static class Dependencies
     private static void RegisterRepositories(
         IServiceCollection services)
     {
-        
+
     }
 }
