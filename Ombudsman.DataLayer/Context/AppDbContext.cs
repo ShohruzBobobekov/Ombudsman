@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 using Ombudsman.Core.Models;
-using Ombudsman.Core.Models.Enum;
 
 namespace Ombudsman.DataLayer;
 
