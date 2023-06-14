@@ -1,5 +1,8 @@
-﻿namespace Ombudsman.Core.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Ombudsman.Core.Models;
+
+[Table("enum_state", Schema = "public")]
 public class State 
 {
     public int Id { get; set; }

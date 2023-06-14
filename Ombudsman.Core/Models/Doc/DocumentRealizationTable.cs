@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ombudsman.Core.Models;
-
+[Table("doc_document_realization_table", Schema = "public")]
 public class DocumentRealizationTable
 {
     public int Id { get; set; }

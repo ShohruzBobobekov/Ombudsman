@@ -2,6 +2,7 @@
 
 namespace Ombudsman.Core.Models;
 
+[Table("doc_information_letter", Schema = "public")]
 public class InformationLetterTable
 {
     public int Id { get; set; }
