@@ -9,9 +9,9 @@ public abstract class Auditable
     public string FullName { get; set; }
     public string ShortName { get; set; }
     public DateTime CreatedDate { get; set; }
-    public int? CreatedUserId { get; set; }
+    public int CreatedUserId { get; set; }
     public DateTime UpdatedDate { get; set; }
-    public int? UpdatedUserId { get; set; }
+    public int? UpdatedUserId { get; set; } = null;
 
 
 }

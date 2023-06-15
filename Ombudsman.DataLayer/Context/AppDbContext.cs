@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using Ombudsman.Core.Models;
-using Ombudsman.Core.Models.Enum;
+
 
 namespace Ombudsman.DataLayer;
 
@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     #region Doc
     public virtual DbSet<DocumentRealization> DocumentRealizations { get; set; }
     public virtual DbSet<DocumentRealizationTable> DocumentRealizationTables { get; set; }
+    public virtual DbSet<FileModel> FileModels { get; set; }
     public virtual DbSet<InformationLetter> InformationLetters { get; set; }
     public virtual DbSet<InformationLetterTable> InformationLetterTables { get; set; }
     #endregion

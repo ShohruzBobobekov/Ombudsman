@@ -73,6 +73,37 @@ namespace Ombudsman.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "enum_initiative_type_translate",
+                schema: "public",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    owner_id = table.Column<int>(type: "integer", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
+                    column_name = table.Column<string>(type: "text", nullable: false),
+                    translate_text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_enum_initiative_type_translate", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_enum_initiative_type_translate_enum_initiative_type_owner_id",
+                        column: x => x.owner_id,
+                        principalSchema: "public",
+                        principalTable: "enum_initiative_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_enum_initiative_type_translate_enum_language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "public",
+                        principalTable: "enum_language",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "enum_document_realizer_type",
                 schema: "public",
                 columns: table => new
@@ -145,6 +176,60 @@ namespace Ombudsman.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "enum_state_translate",
+                schema: "public",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    owner_id = table.Column<int>(type: "integer", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
+                    column_name = table.Column<string>(type: "text", nullable: false),
+                    translate_text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_enum_state_translate", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_enum_state_translate_enum_language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "public",
+                        principalTable: "enum_language",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_enum_state_translate_enum_state_owner_id",
+                        column: x => x.owner_id,
+                        principalSchema: "public",
+                        principalTable: "enum_state",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "enum_user_role",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    order_number = table.Column<string>(type: "text", nullable: false),
+                    short_name = table.Column<string>(type: "text", nullable: false),
+                    full_name = table.Column<string>(type: "text", nullable: false),
+                    state_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_enum_user_role", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_enum_user_role_enum_state_state_id",
+                        column: x => x.state_id,
+                        principalSchema: "public",
+                        principalTable: "enum_state",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "info_document_importance",
                 schema: "public",
                 columns: table => new
@@ -181,7 +266,7 @@ namespace Ombudsman.DataLayer.Migrations
                     full_name = table.Column<string>(type: "text", nullable: false),
                     short_name = table.Column<string>(type: "text", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_user_id = table.Column<int>(type: "integer", nullable: true),
+                    created_user_id = table.Column<int>(type: "integer", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_user_id = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -222,6 +307,68 @@ namespace Ombudsman.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "enum_document_type_translate",
+                schema: "public",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    owner_id = table.Column<int>(type: "integer", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
+                    column_name = table.Column<string>(type: "text", nullable: false),
+                    translate_text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_enum_document_type_translate", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_enum_document_type_translate_enum_document_type_owner_id",
+                        column: x => x.owner_id,
+                        principalSchema: "public",
+                        principalTable: "enum_document_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_enum_document_type_translate_enum_language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "public",
+                        principalTable: "enum_language",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "enum_government_organization_type_translate",
+                schema: "public",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    owner_id = table.Column<int>(type: "integer", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
+                    column_name = table.Column<string>(type: "text", nullable: false),
+                    translate_text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_enum_government_organization_type_translate", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_enum_government_organization_type_translate_enum_government",
+                        column: x => x.owner_id,
+                        principalSchema: "public",
+                        principalTable: "enum_government_organization_type",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_enum_government_organization_type_translate_enum_language_l",
+                        column: x => x.language_id,
+                        principalSchema: "public",
+                        principalTable: "enum_language",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "info_organization",
                 schema: "public",
                 columns: table => new
@@ -235,7 +382,7 @@ namespace Ombudsman.DataLayer.Migrations
                     full_name = table.Column<string>(type: "text", nullable: false),
                     short_name = table.Column<string>(type: "text", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_user_id = table.Column<int>(type: "integer", nullable: true),
+                    created_user_id = table.Column<int>(type: "integer", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_user_id = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -261,6 +408,37 @@ namespace Ombudsman.DataLayer.Migrations
                         column: x => x.superior_organization_id,
                         principalSchema: "public",
                         principalTable: "info_organization",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "info_document_importance_translate",
+                schema: "public",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    owner_id = table.Column<int>(type: "integer", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
+                    column_name = table.Column<string>(type: "text", nullable: false),
+                    translate_text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_info_document_importance_translate", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_info_document_importance_translate_enum_language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "public",
+                        principalTable: "enum_language",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_info_document_importance_translate_info_document_importance",
+                        column: x => x.owner_id,
+                        principalSchema: "public",
+                        principalTable: "info_document_importance",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -292,7 +470,7 @@ namespace Ombudsman.DataLayer.Migrations
                     full_name = table.Column<string>(type: "text", nullable: false),
                     short_name = table.Column<string>(type: "text", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_user_id = table.Column<int>(type: "integer", nullable: true),
+                    created_user_id = table.Column<int>(type: "integer", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_user_id = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -349,23 +527,34 @@ namespace Ombudsman.DataLayer.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    first_name = table.Column<string>(type: "text", nullable: false),
+                    last_name = table.Column<string>(type: "text", nullable: false),
                     username = table.Column<string>(type: "text", nullable: false),
+                    role_id = table.Column<int>(type: "integer", nullable: false),
                     email = table.Column<string>(type: "text", nullable: true),
                     phone = table.Column<string>(type: "text", nullable: true),
-                    password = table.Column<string>(type: "text", nullable: false),
-                    password_salt = table.Column<string>(type: "text", nullable: false),
-                    language_id = table.Column<string>(type: "text", nullable: true),
+                    password_hash = table.Column<string>(type: "text", nullable: false),
+                    salt = table.Column<string>(type: "text", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
                     organization_id = table.Column<int>(type: "integer", nullable: false),
+                    refresh_token = table.Column<string>(type: "text", nullable: true),
+                    refresh_token_expire_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     full_name = table.Column<string>(type: "text", nullable: false),
                     short_name = table.Column<string>(type: "text", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_user_id = table.Column<int>(type: "integer", nullable: true),
+                    created_user_id = table.Column<int>(type: "integer", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_user_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_hl_user", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_hl_user_enum_user_role_role_id",
+                        column: x => x.role_id,
+                        principalTable: "enum_user_role",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_hl_user_info_organization_organization_id",
                         column: x => x.organization_id,
@@ -421,7 +610,7 @@ namespace Ombudsman.DataLayer.Migrations
                     full_name = table.Column<string>(type: "text", nullable: false),
                     short_name = table.Column<string>(type: "text", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_user_id = table.Column<int>(type: "integer", nullable: true),
+                    created_user_id = table.Column<int>(type: "integer", nullable: false),
                     updated_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_user_id = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -433,6 +622,37 @@ namespace Ombudsman.DataLayer.Migrations
                         column: x => x.owner_id,
                         principalSchema: "public",
                         principalTable: "doc_document_realization",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "enum_document_realizer_type_translate",
+                schema: "public",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    owner_id = table.Column<int>(type: "integer", nullable: false),
+                    language_id = table.Column<int>(type: "integer", nullable: false),
+                    column_name = table.Column<string>(type: "text", nullable: false),
+                    translate_text = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_enum_document_realizer_type_translate", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_enum_document_realizer_type_translate_doc_document_realizat",
+                        column: x => x.owner_id,
+                        principalSchema: "public",
+                        principalTable: "doc_document_realization_table",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_enum_document_realizer_type_translate_enum_language_languag",
+                        column: x => x.language_id,
+                        principalSchema: "public",
+                        principalTable: "enum_language",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -527,15 +747,80 @@ namespace Ombudsman.DataLayer.Migrations
                 column: "state_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_enum_document_realizer_type_translate_language_id",
+                schema: "public",
+                table: "enum_document_realizer_type_translate",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_document_realizer_type_translate_owner_id",
+                schema: "public",
+                table: "enum_document_realizer_type_translate",
+                column: "owner_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_enum_document_type_state_id",
                 schema: "public",
                 table: "enum_document_type",
                 column: "state_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_enum_document_type_translate_language_id",
+                schema: "public",
+                table: "enum_document_type_translate",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_document_type_translate_owner_id",
+                schema: "public",
+                table: "enum_document_type_translate",
+                column: "owner_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_enum_government_organization_type_state_id",
                 schema: "public",
                 table: "enum_government_organization_type",
+                column: "state_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_government_organization_type_translate_language_id",
+                schema: "public",
+                table: "enum_government_organization_type_translate",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_government_organization_type_translate_owner_id",
+                schema: "public",
+                table: "enum_government_organization_type_translate",
+                column: "owner_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_initiative_type_translate_language_id",
+                schema: "public",
+                table: "enum_initiative_type_translate",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_initiative_type_translate_owner_id",
+                schema: "public",
+                table: "enum_initiative_type_translate",
+                column: "owner_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_state_translate_language_id",
+                schema: "public",
+                table: "enum_state_translate",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_state_translate_owner_id",
+                schema: "public",
+                table: "enum_state_translate",
+                column: "owner_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_enum_user_role_state_id",
+                table: "enum_user_role",
                 column: "state_id");
 
             migrationBuilder.CreateIndex(
@@ -545,10 +830,28 @@ namespace Ombudsman.DataLayer.Migrations
                 column: "organization_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_hl_user_role_id",
+                schema: "public",
+                table: "hl_user",
+                column: "role_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_info_document_importance_state_id",
                 schema: "public",
                 table: "info_document_importance",
                 column: "state_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_info_document_importance_translate_language_id",
+                schema: "public",
+                table: "info_document_importance_translate",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_info_document_importance_translate_owner_id",
+                schema: "public",
+                table: "info_document_importance_translate",
+                column: "owner_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_info_organization_government_organization_type_id",
@@ -584,10 +887,6 @@ namespace Ombudsman.DataLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "doc_document_realization_table",
-                schema: "public");
-
-            migrationBuilder.DropTable(
                 name: "doc_information_letter_table",
                 schema: "public");
 
@@ -596,11 +895,31 @@ namespace Ombudsman.DataLayer.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "enum_language",
+                name: "enum_document_realizer_type_translate",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "enum_document_type_translate",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "enum_government_organization_type_translate",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "enum_initiative_type_translate",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "enum_state_translate",
                 schema: "public");
 
             migrationBuilder.DropTable(
                 name: "hl_user",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "info_document_importance_translate",
                 schema: "public");
 
             migrationBuilder.DropTable(
@@ -612,7 +931,18 @@ namespace Ombudsman.DataLayer.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
+                name: "doc_document_realization_table",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "enum_user_role");
+
+            migrationBuilder.DropTable(
                 name: "info_organization",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "enum_language",
                 schema: "public");
 
             migrationBuilder.DropTable(

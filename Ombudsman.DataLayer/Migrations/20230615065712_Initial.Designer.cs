@@ -12,7 +12,7 @@ using Ombudsman.DataLayer;
 namespace Ombudsman.DataLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230614091539_Initial")]
+    [Migration("20230615065712_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,45 @@ namespace Ombudsman.DataLayer.Migrations
                     b.ToTable("info_document_importance", "public");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.DocumentImportanceTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("column_name");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("language_id");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
+                    b.Property<string>("TranslateText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("translate_text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_info_document_importance_translate");
+
+                    b.HasIndex("LanguageId")
+                        .HasDatabaseName("ix_info_document_importance_translate_language_id");
+
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_info_document_importance_translate_owner_id");
+
+                    b.ToTable("info_document_importance_translate", "public");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealization", b =>
                 {
                     b.Property<int>("Id")
@@ -79,7 +118,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int?>("CreatedUserId")
+                    b.Property<int>("CreatedUserId")
                         .HasColumnType("integer")
                         .HasColumnName("created_user_id");
 
@@ -284,6 +323,45 @@ namespace Ombudsman.DataLayer.Migrations
                     b.ToTable("enum_document_realizer_type", "public");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealizerTypeTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("column_name");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("language_id");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
+                    b.Property<string>("TranslateText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("translate_text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_document_realizer_type_translate");
+
+                    b.HasIndex("LanguageId")
+                        .HasDatabaseName("ix_enum_document_realizer_type_translate_language_id");
+
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_enum_document_realizer_type_translate_owner_id");
+
+                    b.ToTable("enum_document_realizer_type_translate", "public");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentType", b =>
                 {
                     b.Property<int>("Id")
@@ -319,6 +397,45 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasDatabaseName("ix_enum_document_type_state_id");
 
                     b.ToTable("enum_document_type", "public");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.DocumentTypeTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("column_name");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("language_id");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
+                    b.Property<string>("TranslateText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("translate_text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_document_type_translate");
+
+                    b.HasIndex("LanguageId")
+                        .HasDatabaseName("ix_enum_document_type_translate_language_id");
+
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_enum_document_type_translate_owner_id");
+
+                    b.ToTable("enum_document_type_translate", "public");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.FileModel", b =>
@@ -381,6 +498,45 @@ namespace Ombudsman.DataLayer.Migrations
                     b.ToTable("enum_government_organization_type", "public");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.GovernmentOrganizationTypeTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("column_name");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("language_id");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
+                    b.Property<string>("TranslateText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("translate_text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_government_organization_type_translate");
+
+                    b.HasIndex("LanguageId")
+                        .HasDatabaseName("ix_enum_government_organization_type_translate_language_id");
+
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_enum_government_organization_type_translate_owner_id");
+
+                    b.ToTable("enum_government_organization_type_translate", "public");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.InformationLetter", b =>
                 {
                     b.Property<int>("Id")
@@ -399,7 +555,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int?>("CreatedUserId")
+                    b.Property<int>("CreatedUserId")
                         .HasColumnType("integer")
                         .HasColumnName("created_user_id");
 
@@ -542,6 +698,45 @@ namespace Ombudsman.DataLayer.Migrations
                     b.ToTable("enum_initiative_type", "public");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.InitiativeTypeTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("column_name");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("language_id");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
+                    b.Property<string>("TranslateText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("translate_text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_initiative_type_translate");
+
+                    b.HasIndex("LanguageId")
+                        .HasDatabaseName("ix_enum_initiative_type_translate_language_id");
+
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_enum_initiative_type_translate_owner_id");
+
+                    b.ToTable("enum_initiative_type_translate", "public");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.Language", b =>
                 {
                     b.Property<int>("Id")
@@ -580,7 +775,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int?>("CreatedUserId")
+                    b.Property<int>("CreatedUserId")
                         .HasColumnType("integer")
                         .HasColumnName("created_user_id");
 
@@ -646,7 +841,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int?>("CreatedUserId")
+                    b.Property<int>("CreatedUserId")
                         .HasColumnType("integer")
                         .HasColumnName("created_user_id");
 
@@ -753,6 +948,45 @@ namespace Ombudsman.DataLayer.Migrations
                     b.ToTable("info_state_program", "public");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.StateTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("column_name");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("language_id");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
+                    b.Property<string>("TranslateText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("translate_text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_state_translate");
+
+                    b.HasIndex("LanguageId")
+                        .HasDatabaseName("ix_enum_state_translate_language_id");
+
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_enum_state_translate_owner_id");
+
+                    b.ToTable("enum_state_translate", "public");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -766,7 +1000,7 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int?>("CreatedUserId")
+                    b.Property<int>("CreatedUserId")
                         .HasColumnType("integer")
                         .HasColumnName("created_user_id");
 
@@ -774,33 +1008,55 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasColumnType("text")
                         .HasColumnName("email");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("full_name");
 
-                    b.Property<string>("LanguageId")
-                        .HasColumnType("text")
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer")
                         .HasColumnName("language_id");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
 
                     b.Property<int?>("OrganizationId")
                         .IsRequired()
                         .HasColumnType("integer")
                         .HasColumnName("organization_id");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("password");
-
-                    b.Property<string>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("password_salt");
+                        .HasColumnName("password_hash");
 
                     b.Property<string>("Phone")
                         .HasColumnType("text")
                         .HasColumnName("phone");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text")
+                        .HasColumnName("refresh_token");
+
+                    b.Property<DateTime?>("RefreshTokenExpireDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("refresh_token_expire_date");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("role_id");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("salt");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
@@ -826,7 +1082,47 @@ namespace Ombudsman.DataLayer.Migrations
                     b.HasIndex("OrganizationId")
                         .HasDatabaseName("ix_hl_user_organization_id");
 
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("ix_hl_user_role_id");
+
                     b.ToTable("hl_user", "public");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("full_name");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("order_number");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("short_name");
+
+                    b.Property<int>("StateId")
+                        .HasColumnType("integer")
+                        .HasColumnName("state_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_enum_user_role");
+
+                    b.HasIndex("StateId")
+                        .HasDatabaseName("ix_enum_user_role_state_id");
+
+                    b.ToTable("enum_user_role", (string)null);
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentImportance", b =>
@@ -839,6 +1135,27 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasConstraintName("fk_info_document_importance_enum_state_state_id");
 
                     b.Navigation("State");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.DocumentImportanceTranslate", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_info_document_importance_translate_enum_language_language_id");
+
+                    b.HasOne("Ombudsman.Core.Models.DocumentImportance", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_info_document_importance_translate_info_document_importance");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealization", b =>
@@ -920,6 +1237,27 @@ namespace Ombudsman.DataLayer.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealizerTypeTranslate", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_document_realizer_type_translate_enum_language_languag");
+
+                    b.HasOne("Ombudsman.Core.Models.DocumentRealizationTable", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_document_realizer_type_translate_doc_document_realizat");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentType", b =>
                 {
                     b.HasOne("Ombudsman.Core.Models.State", "State")
@@ -932,6 +1270,27 @@ namespace Ombudsman.DataLayer.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.DocumentTypeTranslate", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_document_type_translate_enum_language_language_id");
+
+                    b.HasOne("Ombudsman.Core.Models.DocumentType", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_document_type_translate_enum_document_type_owner_id");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.GovernmentOrganizationType", b =>
                 {
                     b.HasOne("Ombudsman.Core.Models.State", "State")
@@ -942,6 +1301,27 @@ namespace Ombudsman.DataLayer.Migrations
                         .HasConstraintName("fk_enum_government_organization_type_enum_state_state_id");
 
                     b.Navigation("State");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.GovernmentOrganizationTypeTranslate", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_government_organization_type_translate_enum_language_l");
+
+                    b.HasOne("Ombudsman.Core.Models.GovernmentOrganizationType", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_government_organization_type_translate_enum_government");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.InformationLetter", b =>
@@ -964,6 +1344,27 @@ namespace Ombudsman.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_doc_information_letter_table_doc_information_letter_owner_id");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.InitiativeTypeTranslate", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_initiative_type_translate_enum_language_language_id");
+
+                    b.HasOne("Ombudsman.Core.Models.InitiativeType", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_initiative_type_translate_enum_initiative_type_owner_id");
+
+                    b.Navigation("Language");
 
                     b.Navigation("Owner");
                 });
@@ -1022,6 +1423,27 @@ namespace Ombudsman.DataLayer.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("Ombudsman.Core.Models.StateTranslate", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_state_translate_enum_language_language_id");
+
+                    b.HasOne("Ombudsman.Core.Models.State", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_state_translate_enum_state_owner_id");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("Ombudsman.Core.Models.User", b =>
                 {
                     b.HasOne("Ombudsman.Core.Models.Organization", "UserOrganization")
@@ -1031,7 +1453,28 @@ namespace Ombudsman.DataLayer.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_hl_user_info_organization_organization_id");
 
+                    b.HasOne("Ombudsman.Core.Models.UserRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_hl_user_enum_user_role_role_id");
+
+                    b.Navigation("Role");
+
                     b.Navigation("UserOrganization");
+                });
+
+            modelBuilder.Entity("Ombudsman.Core.Models.UserRole", b =>
+                {
+                    b.HasOne("Ombudsman.Core.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_enum_user_role_enum_state_state_id");
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("Ombudsman.Core.Models.DocumentRealization", b =>

@@ -5,12 +5,6 @@ VisualStudioVersion = 17.7.33711.374
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ombudsman.Api", "Ombudsman\Ombudsman.Api.csproj", "{92E39EDC-7496-4B8C-9B67-B87D7A3181EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{454C46D8-17AD-451A-AD11-94A91F04F874}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BizLogicLayer", "BizLogicLayer", "{0A2221CE-E750-4BE9-A8FB-8872CC22FB96}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E8F24F74-4DCF-4917-9452-5DA35A4F3BFC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ombudsman.BizLogicLayer", "Ombudsman.BizLogicLayer\Ombudsman.BizLogicLayer.csproj", "{D4B9A418-E21D-46C0-BA7C-575726955760}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ombudsman.Core", "Ombudsman.Core\Ombudsman.Core.csproj", "{FF926429-E498-4DD7-929A-A9B766B6BEC2}"
@@ -42,11 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{D4B9A418-E21D-46C0-BA7C-575726955760} = {0A2221CE-E750-4BE9-A8FB-8872CC22FB96}
-		{FF926429-E498-4DD7-929A-A9B766B6BEC2} = {E8F24F74-4DCF-4917-9452-5DA35A4F3BFC}
-		{72762D95-1FCA-4703-9780-329E28630056} = {454C46D8-17AD-451A-AD11-94A91F04F874}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C6B59F7-E10B-4FED-B0BF-DA25A0B6B990}

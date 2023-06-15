@@ -8,17 +8,17 @@ public class User : Auditable
     private const int DEFAULT_EXPIRE_DATE_IN_MINUTES = 1440;
 
     public string FirstName { get; set; }
-    public string? LastName { get; set; }
+    public string LastName { get; set; }
     public string Username { get; set; }
-    public string? Email { get; set; }
-    public string? Phone { get; set; }
+    public int RoleId { get; set; }
+    public string? Email { get; set; } = null;
+    public string? Phone { get; set; } = null;
     public string PasswordHash { get; set; }
     public string Salt { get; set; }
     public int LanguageId { get; set; } = 1;
-    public int? OrganizationId { get; set; }
-    public int RoleId { get; set; }
-    public string? RefreshToken { get; private set; }
-    public DateTime? RefreshTokenExpireDate { get; private set; }
+    public int? OrganizationId { get; set; } = null;
+    public string? RefreshToken { get; private set; } = null;
+    public DateTime? RefreshTokenExpireDate { get; private set; } = null;
 
     [ForeignKey(nameof(OrganizationId))]
     [InverseProperty(nameof(Organization.Users))]

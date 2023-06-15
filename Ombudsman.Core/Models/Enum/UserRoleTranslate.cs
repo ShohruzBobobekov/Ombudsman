@@ -2,6 +2,7 @@
 
 namespace Ombudsman.Core.Models;
 
+[Table("enum_user_role_translate")]
 internal class UserRoleTranslate : BaseEntityTranslate
 {
     [ForeignKey(nameof(OwnerId))]
