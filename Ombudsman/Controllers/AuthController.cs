@@ -8,10 +8,10 @@ namespace Ombudsman.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthenticationService authenticationService;
+    private readonly IAuthService authenticationService;
 
     public AuthController(
-        IAuthenticationService authenticationService)
+        IAuthService authenticationService)
     {
         this.authenticationService=authenticationService;
     }

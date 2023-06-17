@@ -22,6 +22,8 @@ public class AppDbContext : DbContext
     #region Enum
     public virtual DbSet<DocumentRealizerType> DocumentRealizerTypes { get; set; }
     public virtual DbSet<DocumentRealizerTypeTranslate> DocumentRealizerTypeTranslates { get; set; }
+    public virtual DbSet<DocumentState> DocumentStates { get; set; }
+    public virtual DbSet<DocumentStateTranslate> DocumentStateTranslates { get; set; }
     public virtual DbSet<DocumentType> DocumentTypes { get; set; }
     public virtual DbSet<DocumentTypeTranslate> DocumentTypeTranslates { get; set; }
     public virtual DbSet<GovernmentOrganizationType> GovernmentOrganizationTypes { get; set; }
@@ -37,6 +39,7 @@ public class AppDbContext : DbContext
 
     #region Hl
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
     #endregion
 
     #region Info

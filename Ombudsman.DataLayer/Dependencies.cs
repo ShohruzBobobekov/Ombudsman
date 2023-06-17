@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Ombudsman.DataLayer.Repositories;
+
 namespace Ombudsman.DataLayer;
 
 public static class Dependencies
@@ -38,6 +40,6 @@ public static class Dependencies
     private static void RegisterRepositories(
         IServiceCollection services)
     {
-
+         services.AddScoped<IUserRepository, UserRepository>();
     }
 }

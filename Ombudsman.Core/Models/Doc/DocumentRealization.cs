@@ -19,7 +19,7 @@ public class DocumentRealization : Auditable
     public Guid? FileId { get; set; } = null;
     [ForeignKey(nameof(FileId))]
     public FileModel FileModel { get; set; }
-
+    public DocumentState DocumentState { get; set; }
     public DocumentType DocumentType { get; set; }
     public DocumentImportance Importance { get; set; }
     public InitiativeType InitiativeType { get; set; }

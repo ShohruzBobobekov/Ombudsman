@@ -1,7 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Ombudsman.Core.Models;
 
+
+[Index(nameof(LanguageId), nameof(OwnerId), IsUnique = true)]
 public class BaseEntityTranslate
 {
     public int Id { get; set; }

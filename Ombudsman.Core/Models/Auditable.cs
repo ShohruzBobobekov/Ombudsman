@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ombudsman.Core.Models;
 
@@ -8,10 +9,12 @@ public abstract class Auditable
     public int Id { get; set; }
     public string FullName { get; set; }
     public string ShortName { get; set; }
-    public DateTime CreatedDate { get; set; }
+    [Column(TypeName = "timestamp with time zone")]
+    public DateTime CreatedAt { get; set; }
     public int CreatedUserId { get; set; }
-    public DateTime UpdatedDate { get; set; }
+    [Column(TypeName = "timestamp with time zone")]
+    public DateTime UpdatedAt { get; set; }
     public int? UpdatedUserId { get; set; } = null;
-
-
+    public int StateId { get; set; } = 1;
+    public State State { get; set; }
 }

@@ -6,5 +6,5 @@ namespace Ombudsman.Core.Models;
 public class DocumentRealizerTypeTranslate : BaseEntityTranslate
 {
     [ForeignKey(nameof(OwnerId))]
-    public DocumentRealizationTable Owner { get; set; }
+    public DocumentRealizerType Owner { get; set; }
 }
