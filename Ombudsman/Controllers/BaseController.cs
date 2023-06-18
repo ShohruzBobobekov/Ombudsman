@@ -2,7 +2,7 @@
 
 namespace Ombudsman.Api.Controllers;
 
-[Route("api/")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 public class BaseController : ControllerBase
 {

@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 using Ombudsman.Core.Models;
 
-namespace Ombudsman.DataLayer.Repositories.Info.Organizations
+namespace Ombudsman.DataLayer;
+
+internal class OrganizationRepository : GenericRepository<Organization, int>
+    , IOrganizationRepository
 {
-    internal class OrganizationRepository : GenericRepository<Organization, int>
-        , IOrganizationRepository
+    public OrganizationRepository(AppDbContext appDbContext) : base(appDbContext)
     {
-        public OrganizationRepository(AppDbContext appDbContext) : base(appDbContext)
-        {
-        }
     }
 }

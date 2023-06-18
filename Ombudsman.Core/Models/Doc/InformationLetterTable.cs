@@ -1,18 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace Ombudsman.Core.Models;
-
-[Table("doc_information_letter_table", Schema = "public")]
-public class InformationLetterTable
+namespace Ombudsman.Core.Models
 {
-    public int Id { get; set; }
-    public int OrganizationId { get; set; }
-    public string VisaIssuerFullName { get; set; }
-    public string VisaIssuerPosition { get; set; }
-    public string ResponsibleEmployeeFullName { get; set; }
-    public string ResponsibleEmployeePhone { get; set; }
-    public DateOnly DateEnteredForVisa { get; set; }
-    public DateOnly DateOfVisaIssuance { get; set; }
-    public int OwnerId { get; set; }
-    public InformationLetter Owner { get; set; }
+    [Table("doc_information_letter_table")]
+    public partial class InformationLetterTable
+    {
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
+        [Column("organization_id")]
+        public int OrganizationId { get; set; }
+        [Column("visa_issuer_full_name")]
+        [StringLength(100)]
+        public string VisaIssuerFullName { get; set; } = null!;
+        [Column("visa_issuer_position")]
+        [StringLength(100)]
+        public string VisaIssuerPosition { get; set; } = null!;
+        [Column("responsible_employee_full_name")]
+        [StringLength(100)]
+        public string ResponsibleEmployeeFullName { get; set; } = null!;
+        [Column("responsible_employee_phone")]
+        [StringLength(20)]
+        public string ResponsibleEmployeePhone { get; set; } = null!;
+        [Column("date_entered_for_visa")]
+        public DateOnly DateEnteredForVisa { get; set; }
+        [Column("date_of_visa_issuance")]
+        public DateOnly DateOfVisaIssuance { get; set; }
+        [Column("owner_id")]
+        public int OwnerId { get; set; }
+
+        [ForeignKey(nameof(OwnerId))]
+        public virtual InformationLetter Owner { get; set; } = null!;
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ombudsman.DataLayer.Repositories;
+namespace Ombudsman.DataLayer;
 
 public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
 where TEntity : class
@@ -16,9 +16,6 @@ where TEntity : class
     {
         var entityEntry = await this.appDbContext
             .AddAsync<TEntity>(entity);
-
-        await this.SaveChangesAsync();
-
         return entityEntry.Entity;
     }
 
@@ -46,9 +43,6 @@ where TEntity : class
     {
         var entityEntry = this.appDbContext
             .Update<TEntity>(entity);
-
-        await this.SaveChangesAsync();
-
         return entityEntry.Entity;
     }
 
@@ -57,9 +51,6 @@ where TEntity : class
         var entityEntry = this.appDbContext
             .Set<TEntity>()
             .Remove(entity);
-
-        await this.SaveChangesAsync();
-
         return entityEntry.Entity;
     }
 

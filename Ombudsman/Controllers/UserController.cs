@@ -4,31 +4,33 @@ using Ombudsman.BizLogicLayer;
 
 namespace Ombudsman.Api.Controllers;
 
-[Route("[controller]/[action]")]
 public class UserController : BaseController
 {
     private readonly IUserService userService;
 
     public UserController(IUserService userService)
     {
-        this.userService=userService;
+        this.userService = userService;
     }
 
     [HttpPost]
-    public IActionResult Create(CreateUserDlDto user)
-    {
-        return Ok(userService.Create(user));
-    }
+    public async ValueTask<IActionResult> Create(CreateUserDlDto user) => 
+        Ok(await userService.Create(user));
+
 
     [HttpGet]
-    public IActionResult GetList() => Ok(userService.GetList());
+    public async ValueTask<IActionResult> GetList() =>
+        Ok(await userService.GetList());
 
     [HttpGet]
-    public IActionResult GetById(int id) => Ok(userService.GetById(id));
+    public async ValueTask<IActionResult> GetById(int id) => 
+        Ok(await userService.GetById(id));
 
     [HttpPost]
-    public IActionResult Update(UpdateUserDlDto user) => Ok(userService.Update(user));
+    public async ValueTask<IActionResult> Update(UpdateUserDlDto user) =>
+        Ok(await userService.Update(user));
 
     [HttpDelete]
-    public IActionResult Delete(int id) => Ok(userService.Delete(id));
+    public async ValueTask<IActionResult> Delete(int id) =>
+        Ok(await userService.Delete(id));
 }

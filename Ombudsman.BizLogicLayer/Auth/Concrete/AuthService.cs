@@ -42,7 +42,7 @@ public class AuthService : IAuthService
         var user = await userRepository
             .SelectByIdWithDetailsAsync(
                 expression: user => user.Email==authenticationDto.email,
-                includes: new string[] {nameof(User.Role),nameof(User.UserOrganization)});
+                includes: new string[] {nameof(User.Role),nameof(User.Organization)});
 
         User=user;
 

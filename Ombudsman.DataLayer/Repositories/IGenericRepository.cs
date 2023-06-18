@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Ombudsman.DataLayer.Repositories;
+namespace Ombudsman.DataLayer;
 
 public interface IGenericRepository<TEntity, TKey>
 {

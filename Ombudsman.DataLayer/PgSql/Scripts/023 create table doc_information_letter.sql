@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS public.doc_information_letter
     owner_id integer NOT NULL REFERENCES public.doc_document_realization (id),
     full_name varchar(100) NOT NULL,
     short_name varchar(100) NOT NULL,
-    created_date timestamp without time zone NOT NULL,
-    created_user_id integer NOT NULL,
-    updated_date timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    created_user_id integer,
+    updated_at timestamp without time zone NOT NULL,
     updated_user_id integer
 )

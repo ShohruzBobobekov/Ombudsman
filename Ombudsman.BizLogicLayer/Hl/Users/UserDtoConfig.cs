@@ -13,7 +13,7 @@ public class UserDtoConfig : Profile
     {
         CreateMap<User, UserDto>()
             .ForMember(d => d.Role, cfg => cfg.MapFrom(u => u.Role.FullName))
-            .ForMember(d => d.Organization, cfg => cfg.MapFrom(u => u.UserOrganization.FullName));
+            .ForMember(d => d.Organization, cfg => cfg.MapFrom(u => u.Organization.FullName));
         CreateMap<UserDlDto, User>()
             .ForMember(u => u.UpdatedAt, cfg => cfg.MapFrom(d => DateTime.Now))
             .ForMember(u => u.UpdatedUserId, cfg => cfg.MapFrom(d => auth.User.Id));

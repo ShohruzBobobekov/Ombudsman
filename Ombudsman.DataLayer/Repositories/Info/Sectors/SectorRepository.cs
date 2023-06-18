@@ -1,12 +1,11 @@
 ﻿using Ombudsman.Core.Models;
 
-namespace Ombudsman.DataLayer.Repositories.Info.Sectors
+namespace Ombudsman.DataLayer;
+
+internal class SectorRepository : GenericRepository<Sector, int>
+    , ISectorRepository
 {
-    internal class SectorRepository : GenericRepository<Sector, int>
-        , ISectorRepository
+    public SectorRepository(AppDbContext appDbContext) : base(appDbContext)
     {
-        public SectorRepository(AppDbContext appDbContext) : base(appDbContext)
-        {
-        }
     }
 }

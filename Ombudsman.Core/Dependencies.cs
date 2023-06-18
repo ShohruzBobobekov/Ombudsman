@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
+using Ombudsman.Core.Configurations;
+
 namespace Ombudsman.Core;
 
 public static class Dependencies
@@ -13,7 +15,6 @@ public static class Dependencies
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddAuthorization();
 
         services.AddAuthentication(options =>
         {
@@ -22,20 +23,24 @@ public static class Dependencies
             options.DefaultChallengeScheme=JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            options.TokenValidationParameters=new TokenValidationParameters
+            options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer=true,
                 ValidateAudience=true,
                 ValidateLifetime=true,
                 ValidateIssuerSigningKey=true,
-                ValidIssuer=configuration["JwtSettings:Issuer"],
-                ValidAudience=configuration["JwtSettings:Audience"],
+                ValidIssuer=configuration["JwtOptions:Issuer"],
+                ValidAudience=configuration["JwtOptions:Audience"],
                 IssuerSigningKey=new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"])),
+                    Encoding.UTF8.GetBytes(configuration["JwtOptions:SecretKey"])),
                 ClockSkew=TimeSpan.Zero
             };
         });
 
+        services.AddAuthorization();
+
+        services.AddSingleton<IJwtTokenHandler, JwtTokenHandler>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
         return services;
     }
 }

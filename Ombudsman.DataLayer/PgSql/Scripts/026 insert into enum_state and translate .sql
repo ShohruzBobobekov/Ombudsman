@@ -22,3 +22,16 @@ VALUES
   (2, 2, 'full_name', 'Nofaol'),
   -- Russian translations
   (2, 3, 'full_name', 'Пассив');
+
+
+INSERT INTO enum_state (id, short_name, full_name)
+VALUES (3, 'Ў', 'Ўчирилган');
+
+INSERT INTO enum_state_translate (owner_id, language_id, column_name, translate_text)
+VALUES
+  -- Uzbek Cyrillic translations
+  (3, 1, 'full_name', 'Ўчирилган'),
+  -- Uzbek Latin translations
+  (3, 2, 'full_name', 'O`chirilgan'),
+  -- Russian translations
+  (3, 3, 'full_name', 'Удалено');

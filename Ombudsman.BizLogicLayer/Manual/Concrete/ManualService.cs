@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
+
 using Ombudsman.BizLogicLayer.Auth;
+using Ombudsman.Core.Models;
 using Ombudsman.DataLayer;
 
 namespace Ombudsman.BizLogicLayer.Manual.Concrete;
@@ -11,43 +14,89 @@ internal class ManualService : IManualService
     private readonly IUnitOfWork unitOfWork;
     private readonly IAuthService authService;
 
-    public ValueTask<IQueryable<DocumentImportanceDto>> GetDocumentImportanceList()
+    public ManualService(
+        IMapper mapper,
+        IUnitOfWork unitOfWork,
+        IAuthService authService)
     {
-        throw new NotImplementedException();
+        this.mapper = mapper;
+        this.unitOfWork = unitOfWork;
+        this.authService = authService;
     }
 
-    public ValueTask<IQueryable<DocumentRealizerTypeDto>> GetDocumentRealizerTypeList()
+    public async ValueTask<IQueryable<DocumentImportanceDto>> GetDocumentImportanceList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<DocumentImportance>()
+            .Include(d => d.State)
+            .Where(d => d.StateId == StateIdConst.ACTIVE)
+            .Select(e => mapper.Map<DocumentImportanceDto>(e));
+       
+        return query;
     }
 
-    public ValueTask<IQueryable<DocumentStateDto>> GetDocumentStateList()
+    public async ValueTask<IQueryable<DocumentRealizerTypeDto>> GetDocumentRealizerTypeList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<DocumentRealizerType>()
+            .Include(d => d.State)
+            .Where(d => d.StateId == StateIdConst.ACTIVE)
+            .Select(e => mapper.Map<DocumentRealizerTypeDto>(e));
+
+        return query;
     }
 
-    public ValueTask<IQueryable<DocumentTypeDto>> GetDocumentTypeList()
+    public async ValueTask<IQueryable<DocumentStateDto>> GetDocumentStateList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<DocumentState>()
+           .Include(d => d.State)
+           .Where(d => d.StateId == StateIdConst.ACTIVE)
+           .Select(e => mapper.Map<DocumentStateDto>(e));
+
+        return query;
     }
 
-    public ValueTask<IQueryable<GovernmentOrganizationTypeDto>> GetGovernmentOrganizationTypeList()
+    public async ValueTask<IQueryable<DocumentTypeDto>> GetDocumentTypeList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<DocumentType>()
+       .Include(d => d.State)
+       .Where(d => d.StateId == StateIdConst.ACTIVE)
+       .Select(e => mapper.Map<DocumentTypeDto>(e));
+
+        return query;
     }
 
-    public ValueTask<IQueryable<LanguageDto>> GetLanguageList()
+    public async ValueTask<IQueryable<GovernmentOrganizationTypeDto>> GetGovernmentOrganizationTypeList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<GovernmentOrganizationType>()
+        .Include(d => d.State)
+        .Where(d => d.StateId == StateIdConst.ACTIVE)
+        .Select(e => mapper.Map<GovernmentOrganizationTypeDto>(e));
+
+        return query;
     }
 
-    public ValueTask<IQueryable<StateDto>> GetStateList()
+    public async ValueTask<IQueryable<LanguageDto>> GetLanguageList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<Language>()
+       .Select(e => mapper.Map<LanguageDto>(e));
+
+        return query;
     }
 
-    public ValueTask<IQueryable<UserRoleDto>> GetUserRoleList()
+    public async ValueTask<IQueryable<StateDto>> GetStateList()
     {
-        throw new NotImplementedException();
+        var query = unitOfWork.Context.Set<State>()
+        .Select(e => mapper.Map<StateDto>(e));
+
+        return query;
     }
+
+    public async ValueTask<IQueryable<UserRoleDto>> GetUserRoleList()
+    {
+        var query = unitOfWork.Context.Set<UserRole>()
+       .Include(d => d.State)
+       .Where(d => d.StateId == StateIdConst.ACTIVE)
+       .Select(e => mapper.Map<UserRoleDto>(e));
+
+        return query;
+    }    
 }

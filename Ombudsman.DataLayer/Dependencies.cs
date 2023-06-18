@@ -12,12 +12,12 @@ public static class Dependencies
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        AddPersistence(services, configuration);
+        AddDataBase(services, configuration);
 
         return services;
     }
 
-    private static void AddPersistence(
+    private static void AddDataBase(
         IServiceCollection services,
         IConfiguration configuration)
     {
@@ -40,6 +40,12 @@ public static class Dependencies
     private static void RegisterRepositories(
         IServiceCollection services)
     {
-         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IDocumentRealizationRepository, DocumentRealizationRepository>();
+        services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+        services.AddScoped<ISectorRepository, SectorRepository>();
+        services.AddScoped<IStateProgramRepository, StateProgramRepository>();
     }
 }

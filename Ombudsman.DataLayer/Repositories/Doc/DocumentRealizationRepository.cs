@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 using Ombudsman.Core.Models;
 
-namespace Ombudsman.DataLayer.Repositories.Doc
+namespace Ombudsman.DataLayer;
+
+internal class DocumentRealizationRepository : GenericRepository<DocumentRealization, int>,
+    IDocumentRealizationRepository
 {
-    internal class DocumentRealizationRepository : GenericRepository<DocumentRealization, int>,
-        IDocumentRealizationRepository
+    public DocumentRealizationRepository(AppDbContext appDbContext)
+        : base(appDbContext)
     {
-        public DocumentRealizationRepository(AppDbContext appDbContext)
-            : base(appDbContext)
-        {
-        }
     }
 }

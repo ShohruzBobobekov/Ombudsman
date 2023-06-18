@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS public.info_sector
     state_id integer NOT NULL REFERENCES public.enum_state (id),
     full_name varchar(100) NOT NULL,
     short_name varchar(100) NOT NULL,
-    created_date timestamp without time zone NOT NULL,
-    created_user_id integer NOT NULL,
-    updated_date timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    created_user_id integer,
+    updated_at timestamp without time zone,
     updated_user_id integer
 )

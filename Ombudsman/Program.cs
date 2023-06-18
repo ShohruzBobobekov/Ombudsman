@@ -16,7 +16,7 @@ namespace Ombudsman
            .AddDataLayer(builder.Configuration)
            .AddCoreLayer(builder.Configuration)
            .AddBizLogicLayer()
-           .AddApis();
+           .AddApis(builder.Configuration);
 
             var app = builder.Build();
 
@@ -28,7 +28,7 @@ namespace Ombudsman
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
