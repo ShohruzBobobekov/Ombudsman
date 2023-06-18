@@ -2,18 +2,17 @@
 
 using Ombudsman.Core.Models;
 using Ombudsman.DataLayer;
-using Ombudsman.DataLayer.Repositories;
 
 namespace Ombudsman.BizLogicLayer;
 
-internal class EmployeeService : IEmployeeService
+internal class OrganizationService : IOrganizationService
 {
-    private readonly IEmployeeRepository repository;
+    private readonly IOrganizationRepository repository;
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
 
-    public EmployeeService(
-        IEmployeeRepository repository,
+    public OrganizationService(
+        IOrganizationRepository repository,
         IUnitOfWork unitOfWork,
         IMapper mapper)
     {
@@ -22,9 +21,9 @@ internal class EmployeeService : IEmployeeService
         this.mapper = mapper;
     }
 
-    public async ValueTask<int> Create(CreateEmployeeDto dto)
+    public async ValueTask<int> Create(CreateOrganizationDto dto)
     {
-        var employee = mapper.Map<Employee>(dto);
+        var employee = mapper.Map<Organization>(dto);
         var entity = await repository.InsertAsync(employee);
         await unitOfWork.Save();
         return entity.Id;
@@ -33,24 +32,25 @@ internal class EmployeeService : IEmployeeService
     public async ValueTask<int> Delete(int id)
     {
         var entity = await repository.SelectByIdAsync(id);
-        var deleted = await repository.DeleteAsync(entity);
-        unitOfWork.Save();
-        return deleted.Id;
+
+        entity.StateId = StateIdConst.DELETED;
+        await unitOfWork.Save();
+        return entity.Id;
     }
 
-    public async ValueTask<Employee> GetEmployeeById(int id)
+    public async ValueTask<OrganizationDto> GetOrganizationById(int id)
     {
-        return await repository.SelectByIdAsync(id);
+        var entity = await repository.SelectByIdAsync(id);
+        return mapper.Map<OrganizationDto>(entity);
     }
 
-    public async ValueTask<IQueryable<Employee>> GetEmployees()
+    public async ValueTask<IQueryable<OrganizationDto>> GetOrganizations()
     {
         var query = repository.SelectAll();
-        // organizatsiya ni tekshirish kerak.
-        return query;
+        return query.Select(e => mapper.Map<OrganizationDto>(e));
     }
 
-    public async ValueTask<int> Update(UpdateEmployeeDto dto)
+    public async ValueTask<int> Update(UpdateOrganizationDto dto)
     {
         var entity = await repository.SelectByIdAsync(dto.Id);
         entity = mapper.Map(dto, entity);

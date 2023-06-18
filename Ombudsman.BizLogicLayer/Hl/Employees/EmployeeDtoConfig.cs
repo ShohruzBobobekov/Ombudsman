@@ -2,7 +2,7 @@
 
 using Ombudsman.Core.Models;
 
-namespace Ombudsman.BizLogicLayer.Hl.Employees;
+namespace Ombudsman.BizLogicLayer;
 
 public class EmployeeDtoConfig : Profile
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ombudsman.BizLogicLayer;
-
-public class UpdateEmployeeDto : CreateEmployeeDto
+namespace Ombudsman.BizLogicLayer.Info.Sectors.Concrete
 {
-    public int Id { get; set; }
+    internal interface ISectorService
+    {
+    }
 }

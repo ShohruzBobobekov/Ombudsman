@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ombudsman.BizLogicLayer;
 
-public class UpdateEmployeeDto : CreateEmployeeDto
+public class UpdateOrganizationDto :CreateOrganizationDto
 {
     public int Id { get; set; }
 }

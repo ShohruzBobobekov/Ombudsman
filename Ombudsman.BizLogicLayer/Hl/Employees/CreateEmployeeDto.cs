@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ombudsman.BizLogicLayer.Hl;
+namespace Ombudsman.BizLogicLayer;
 
 public class CreateEmployeeDto
 {

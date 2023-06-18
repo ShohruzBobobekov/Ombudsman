@@ -15,4 +15,9 @@
     <ProjectReference Include="..\Ombudsman.DataLayer\Ombudsman.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Info\Sectors\Concrete\" />
+    <Folder Include="Info\StatePrograms\Concrete\" />
+  </ItemGroup>
+
 </Project>
