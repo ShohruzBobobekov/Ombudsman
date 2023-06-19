@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using Ombudsman.BizLogicLayer;
-using Ombudsman.BizLogicLayer.Hl;
-using Ombudsman.BizLogicLayer.Hl.Employees;
 using Ombudsman.Core.Models;
 
 namespace Ombudsman.Api.Controllers;

@@ -9,8 +9,8 @@ public class OrganizationDto
     public bool IsGrouper { get; set; }
     public int? SuperiorOrganizationId { get; set; }
     public int StateId { get; set; }
-    public string FullName { get; set; } = null!;
-    public string ShortName { get; set; } = null!;
+    public string FullName { get; set; }
+    public string ShortName { get; set; }
     public DateTime? CreatedAt { get; set; }
     public int? CreatedUserId { get; set; }
     public DateTime? UpdatedAt { get; set; }

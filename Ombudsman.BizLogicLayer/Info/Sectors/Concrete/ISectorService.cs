@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Ombudsman.BizLogicLayer;
 
-namespace Ombudsman.BizLogicLayer.Info.Sectors.Concrete
+public interface ISectorService
 {
-    internal interface ISectorService
-    {
-    }
+    ValueTask<int> Create(CreateSectorDto dto);
+    ValueTask<IQueryable<SectorDto>> GetSectors();
+    ValueTask<SectorDto> GetSectorById(int id);
+    ValueTask<int> Update(UpdateSectorDto dto);
+    ValueTask<int> Delete(int id);
 }

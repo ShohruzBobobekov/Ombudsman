@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ombudsman.Core.Models;
 
@@ -11,7 +8,7 @@ public partial class FileModel
 {
     public FileModel()
     {
-        DocDocumentRealizations = new HashSet<DocumentRealization>();
+        DocumentRealizations = new HashSet<DocumentRealization>();
     }
 
     [Key]
@@ -24,5 +21,5 @@ public partial class FileModel
     [StringLength(10)]
     public string Extension { get; set; } = null!;
 
-    public virtual ICollection<DocumentRealization> DocDocumentRealizations { get; set; }
+    public virtual ICollection<DocumentRealization> DocumentRealizations { get; set; }
 }

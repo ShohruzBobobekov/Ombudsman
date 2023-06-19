@@ -9,15 +9,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ombudsman.DataLayer\Ombudsman.DataLayer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Info\Sectors\Concrete\" />
-    <Folder Include="Info\StatePrograms\Concrete\" />
   </ItemGroup>
 
 </Project>

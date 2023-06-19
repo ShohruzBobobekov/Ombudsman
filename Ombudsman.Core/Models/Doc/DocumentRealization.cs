@@ -11,8 +11,8 @@ public partial class DocumentRealization
 {
     public DocumentRealization()
     {
-        DocDocumentRealizationTables = new HashSet<DocumentRealizationTable>();
-        DocInformationLetters = new HashSet<InformationLetter>();
+        Tables = new HashSet<DocumentRealizationTable>();
+        InformationLetters = new HashSet<InformationLetter>();
     }
 
     [Key]
@@ -87,6 +87,6 @@ public partial class DocumentRealization
     public virtual Sector ResponsibleSector { get; set; } = null!;
     [ForeignKey("StateId")]
     public virtual State State { get; set; } = null!;
-    public virtual ICollection<DocumentRealizationTable> DocDocumentRealizationTables { get; set; }
-    public virtual ICollection<InformationLetter> DocInformationLetters { get; set; }
+    public virtual ICollection<DocumentRealizationTable> Tables { get; set; }
+    public virtual ICollection<InformationLetter> InformationLetters { get; set; }
 }

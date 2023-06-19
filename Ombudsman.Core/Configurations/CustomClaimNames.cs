@@ -2,7 +2,7 @@
 
 public class CustomClaimNames
 {
-    public const string Email = "email";
+    public const string Email = "emayli";
     public const string RoleId = "roleId";
     public const string Id = "id";
     public const string OrganizationId = "organizationId";

@@ -19,11 +19,15 @@ internal class UserService : IUserService
     private readonly IAuthService authService;
     public UserService(IUserRepository userRepository,
         IMapper mapper,
-        IPasswordHasher passwordHasher)
+        IPasswordHasher passwordHasher,
+        IUnitOfWork unitOgWork,
+        IAuthService authService)
     {
         this.userRepository = userRepository;
         this.mapper = mapper;
         this.passwordHasher = passwordHasher;
+        this.unitOgWork = unitOgWork;
+        this.authService = authService;
     }
 
     public async ValueTask<int> Create(CreateUserDlDto dto)

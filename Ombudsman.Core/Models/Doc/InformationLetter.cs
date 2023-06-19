@@ -11,7 +11,7 @@ namespace Ombudsman.Core.Models
     {
         public InformationLetter()
         {
-            InformationLetterTables = new HashSet<InformationLetterTable>();
+            Tables = new HashSet<InformationLetterTable>();
         }
 
         [Key]
@@ -56,6 +56,6 @@ namespace Ombudsman.Core.Models
 
         [ForeignKey(nameof(OwnerId))]
         public virtual DocumentRealization Owner { get; set; } = null!;
-        public virtual ICollection<InformationLetterTable> InformationLetterTables { get; set; }
+        public virtual ICollection<InformationLetterTable> Tables { get; set; }
     }
 }

@@ -12,4 +12,5 @@ public interface IManualService
     ValueTask<IQueryable<LanguageDto>> GetLanguageList();
     ValueTask<IQueryable<StateDto>> GetStateList();
     ValueTask<IQueryable<UserRoleDto>> GetUserRoleList();
+    ValueTask<IQueryable<InitiativeTypeDto>> GetInitiativeTypeList();
 }

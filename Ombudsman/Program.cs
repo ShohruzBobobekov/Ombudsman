@@ -1,3 +1,4 @@
+using Ombudsman.Api.Middleware;
 using Ombudsman.BizLogicLayer;
 using Ombudsman.Core;
 using Ombudsman.DataLayer;
@@ -13,10 +14,10 @@ namespace Ombudsman
             // Add services to the container.
 
             builder.Services
+           .AddApis(builder.Configuration)
            .AddDataLayer(builder.Configuration)
            .AddCoreLayer(builder.Configuration)
-           .AddBizLogicLayer()
-           .AddApis(builder.Configuration);
+           .AddBizLogicLayer();
 
             var app = builder.Build();
 
@@ -30,7 +31,7 @@ namespace Ombudsman
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseMiddleware<UserMiddleware>();
 
             app.MapControllers();
 

@@ -99,4 +99,12 @@ internal class ManualService : IManualService
 
         return query;
     }    
+    public async ValueTask<IQueryable<InitiativeTypeDto>> GetInitiativeTypeList()
+    {
+        var query=unitOfWork.Context.Set<InitiativeType>()
+            .Include(e=>e.Translates)
+            .Select(e=>mapper.Map<InitiativeTypeDto>(e));
+
+        return query;
+    }
 }

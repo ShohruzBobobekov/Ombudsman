@@ -1,12 +1,8 @@
 ﻿using System.Reflection;
 
-using AutoMapper;
-
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
 using Ombudsman.BizLogicLayer.Auth;
-using Ombudsman.BizLogicLayer.Manual;
 using Ombudsman.BizLogicLayer.Manual.Concrete;
 using Ombudsman.BizLogicLayer.Users;
 
@@ -20,11 +16,15 @@ public static class Dependencies
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        services.AddSingleton<IPasswordHasher,PasswordHasher>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ISectorService, SectorService>();
         services.AddScoped<IManualService, ManualService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddScoped<IOrganizationService, OrganizationService>();
+        services.AddScoped<IStateProgramService, StateProgramService>();
+        services.AddScoped<IDocumentRealizationService, DocumentRealizationService>();
 
         services.AddHttpContextAccessor();
 

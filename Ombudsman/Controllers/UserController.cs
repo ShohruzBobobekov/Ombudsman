@@ -1,20 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Ombudsman.BizLogicLayer;
 
 namespace Ombudsman.Api.Controllers;
 
+[Authorize]
 public class UserController : BaseController
 {
     private readonly IUserService userService;
-
     public UserController(IUserService userService)
     {
         this.userService = userService;
     }
 
     [HttpPost]
-    public async ValueTask<IActionResult> Create(CreateUserDlDto user) => 
+    public async ValueTask<IActionResult> Create(CreateUserDlDto user) =>
         Ok(await userService.Create(user));
 
 
@@ -23,7 +24,7 @@ public class UserController : BaseController
         Ok(await userService.GetList());
 
     [HttpGet]
-    public async ValueTask<IActionResult> GetById(int id) => 
+    public async ValueTask<IActionResult> GetById(int id) =>
         Ok(await userService.GetById(id));
 
     [HttpPost]

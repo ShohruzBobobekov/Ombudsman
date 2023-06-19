@@ -63,6 +63,7 @@ public class ManualServiceConfig : Profile
 
         CreateMap<UserRole, UserRoleDto>();
         CreateMap<Language, LanguageDto>();
+        CreateMap<InitiativeType, InitiativeTypeDto>();
     }
 
 }

@@ -54,4 +54,9 @@ public class ManualController : BaseController
     {
         return Ok(await service.GetUserRoleList());
     }
+    [HttpGet]
+    public async ValueTask<IActionResult> GetInitiativeTypeList()
+    {
+        return Ok(await service.GetInitiativeTypeList());
+    }
 }

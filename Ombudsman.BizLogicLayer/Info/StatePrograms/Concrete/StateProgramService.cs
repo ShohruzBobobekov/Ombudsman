@@ -5,14 +5,14 @@ using Ombudsman.DataLayer;
 
 namespace Ombudsman.BizLogicLayer;
 
-internal class OrganizationService : IOrganizationService
+internal class StateProgramService : IStateProgramService
 {
-    private readonly IOrganizationRepository repository;
+    private readonly IStateProgramRepository repository;
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
 
-    public OrganizationService(
-        IOrganizationRepository repository,
+    public StateProgramService(
+        IStateProgramRepository repository,
         IUnitOfWork unitOfWork,
         IMapper mapper)
     {
@@ -21,10 +21,9 @@ internal class OrganizationService : IOrganizationService
         this.mapper = mapper;
     }
 
-    public async ValueTask<int> Create(CreateOrganizationDto dto)
+    public async ValueTask<int> Create(CreateStateProgramDto dto)
     {
-        var entity = mapper.Map<Organization>(dto);
-        entity.CreatedAt = DateTime.Now;
+        var entity = mapper.Map<StateProgram>(dto);
         entity.StateId = StateIdConst.ACTIVE;
         entity = await repository.InsertAsync(entity);
         await unitOfWork.Save();
@@ -34,25 +33,24 @@ internal class OrganizationService : IOrganizationService
     public async ValueTask<int> Delete(int id)
     {
         var entity = await repository.SelectByIdAsync(id);
-
         entity.StateId = StateIdConst.DELETED;
         await unitOfWork.Save();
         return entity.Id;
     }
 
-    public async ValueTask<OrganizationDto> GetOrganizationById(int id)
+    public async ValueTask<StateProgramDto> GetStateProgramById(int id)
     {
         var entity = await repository.SelectByIdAsync(id);
-        return mapper.Map<OrganizationDto>(entity);
+        return mapper.Map<StateProgramDto>(entity);
     }
 
-    public async ValueTask<IQueryable<OrganizationDto>> GetOrganizations()
+    public async ValueTask<IQueryable<StateProgramDto>> GetStatePrograms()
     {
         var query = repository.SelectAll();
-        return query.Select(e => mapper.Map<OrganizationDto>(e));
+        return query.Select(sp => mapper.Map<StateProgramDto>(sp));
     }
 
-    public async ValueTask<int> Update(UpdateOrganizationDto dto)
+    public async ValueTask<int> Update(UpdateStateProgramDto dto)
     {
         var entity = await repository.SelectByIdAsync(dto.Id);
         entity = mapper.Map(dto, entity);

@@ -14,8 +14,8 @@ where TEntity : class
     public async ValueTask<TEntity> InsertAsync(
         TEntity entity)
     {
-        var entityEntry = await this.appDbContext
-            .AddAsync<TEntity>(entity);
+        var entityEntry =  this.appDbContext
+            .Add<TEntity>(entity);
         return entityEntry.Entity;
     }
 
