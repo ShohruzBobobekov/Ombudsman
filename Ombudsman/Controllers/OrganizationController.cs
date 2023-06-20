@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Ombudsman.BizLogicLayer;
 
 namespace Ombudsman.Api.Controllers;
 
-
+[Authorize]
 public class OrganizationController : BaseController
 {
     private readonly IOrganizationService service;

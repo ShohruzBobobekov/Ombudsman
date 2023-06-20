@@ -10,20 +10,14 @@ public class GlobalExceptionHandler : IMiddleware
         }
         catch(Exception ex)
         {
-            // Handle the exception and generate a custom response
-            await HandleExceptionAsync(context, ex);
+            await HandleExceptionAsync(context, ex.Message);
         }
     }
-
-    private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private static async Task HandleExceptionAsync(HttpContext context, string message)
     {
-        // Perform any custom exception handling logic here
-        // You can log the exception, generate a custom error response, etc.
-
-        // Set the response status code
-        context.Response.StatusCode=500;
-
-        // Write the error message to the response
-        await context.Response.WriteAsync("An error occurred. Please try again later.");
+        context.Response.ContentType = "application/json";
+        context.Response.Clear();
+        await context.Response.WriteAsync(message);
+        
     }
 }

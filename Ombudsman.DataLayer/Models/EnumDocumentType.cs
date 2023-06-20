@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,8 +31,11 @@ namespace Ombudsman.DataLayer.Models
         public int StateId { get; set; }
 
         [ForeignKey("StateId")]
+        [InverseProperty("EnumDocumentTypes")]
         public virtual EnumState State { get; set; } = null!;
+        [InverseProperty("DocumentType")]
         public virtual ICollection<DocDocumentRealization> DocDocumentRealizations { get; set; }
+        [InverseProperty("Owner")]
         public virtual ICollection<EnumDocumentTypeTranslate> EnumDocumentTypeTranslates { get; set; }
     }
 }

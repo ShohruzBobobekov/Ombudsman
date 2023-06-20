@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +11,7 @@ namespace Ombudsman.DataLayer.Models
     {
         public InfoOrganization()
         {
+            DocDocumentRealizations = new HashSet<DocDocumentRealization>();
             HlUsers = new HashSet<HlUser>();
             InverseSuperiorOrganization = new HashSet<InfoOrganization>();
         }
@@ -42,12 +43,19 @@ namespace Ombudsman.DataLayer.Models
         public int? UpdatedUserId { get; set; }
 
         [ForeignKey("GovernmentOrganizationTypeId")]
+        [InverseProperty("InfoOrganizations")]
         public virtual EnumGovernmentOrganizationType GovernmentOrganizationType { get; set; } = null!;
         [ForeignKey("StateId")]
+        [InverseProperty("InfoOrganizations")]
         public virtual EnumState State { get; set; } = null!;
         [ForeignKey("SuperiorOrganizationId")]
+        [InverseProperty("InverseSuperiorOrganization")]
         public virtual InfoOrganization? SuperiorOrganization { get; set; }
+        [InverseProperty("Organization")]
+        public virtual ICollection<DocDocumentRealization> DocDocumentRealizations { get; set; }
+        [InverseProperty("Organization")]
         public virtual ICollection<HlUser> HlUsers { get; set; }
+        [InverseProperty("SuperiorOrganization")]
         public virtual ICollection<InfoOrganization> InverseSuperiorOrganization { get; set; }
     }
 }

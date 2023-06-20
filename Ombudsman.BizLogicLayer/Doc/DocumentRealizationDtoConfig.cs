@@ -10,7 +10,7 @@ public class DocumentRealizationDtoConfig : Profile
     {
         CreateMap<CreateDocumentRealizationDto, DocumentRealization>()
             .ForMember(d=>d.SentDate,cfg=>cfg.MapFrom(e=>DateOnly.FromDateTime(e.SentDate)))
-            .ForMember(d=>d.DocDate, cfg=>cfg.MapFrom(e=>DateOnly.FromDateTime(e.DocDate.Value)));
+            .ForMember(d=>d.DocDate, cfg=>cfg.MapFrom(e=>DateOnly.FromDateTime((DateTime)e.DocDate)));
         CreateMap<CreateDocumentRealizationTableDto, DocumentRealizationTable>()
             .ForMember(d => d.DateEnteredForVisa, cfg => cfg.MapFrom(e => DateOnly.FromDateTime(e.DateEnteredForVisa)))
             .ForMember(d => d.DateOfVisaIssuance, cfg => cfg.MapFrom(e => DateOnly.FromDateTime(e.DateOfVisaIssuance)));

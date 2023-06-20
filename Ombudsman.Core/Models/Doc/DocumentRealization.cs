@@ -60,21 +60,29 @@ public partial class DocumentRealization
     public int InitiativeTypeId { get; set; }
     [Column("state_id")]
     public int StateId { get; set; }
+    [Column("organization_id")]
+    public int OrganizationId { get; set; }
     [Column("full_name")]
     [StringLength(200)]
     public string FullName { get; set; } = null!;
     [Column("short_name")]
     [StringLength(200)]
     public string ShortName { get; set; } = null!;
+    [Column("document_state_id")]
+    public int DocumentStateId { get; set; }
     [Column("created_at", TypeName = "timestamp without time zone")]
     public DateTime CreatedAt { get; set; }
     [Column("created_user_id")]
-    public int CreatedUserId { get; set; }
+    public int? CreatedUserId { get; set; }
     [Column("updated_at", TypeName = "timestamp without time zone")]
     public DateTime? UpdatedAt { get; set; }
     [Column("updated_user_id")]
     public int? UpdatedUserId { get; set; }
 
+    [ForeignKey("OrganizationId")]
+    public virtual Organization Organization { get; set; } = null!;
+    [ForeignKey("DocumentStateId")]
+    public virtual DocumentState DocumentState { get; set; } = null!;
     [ForeignKey("DocumentTypeId")]
     public virtual DocumentType DocumentType { get; set; } = null!;
     [ForeignKey("FileId")]

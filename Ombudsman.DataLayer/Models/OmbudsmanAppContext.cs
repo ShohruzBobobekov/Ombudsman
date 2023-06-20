@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -56,6 +56,12 @@ namespace Ombudsman.DataLayer.Models
         {
             modelBuilder.Entity<DocDocumentRealization>(entity =>
             {
+                entity.HasOne(d => d.DocumentState)
+                    .WithMany(p => p.DocDocumentRealizations)
+                    .HasForeignKey(d => d.DocumentStateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("doc_document_realization_document_state_id_fkey");
+
                 entity.HasOne(d => d.DocumentType)
                     .WithMany(p => p.DocDocumentRealizations)
                     .HasForeignKey(d => d.DocumentTypeId)
@@ -78,6 +84,12 @@ namespace Ombudsman.DataLayer.Models
                     .HasForeignKey(d => d.InitiativeTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("doc_document_realization_initiative_type_id_fkey");
+
+                entity.HasOne(d => d.Organization)
+                    .WithMany(p => p.DocDocumentRealizations)
+                    .HasForeignKey(d => d.OrganizationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("doc_document_realization_organization_id_fkey");
 
                 entity.HasOne(d => d.ResponsibleSector)
                     .WithMany(p => p.DocDocumentRealizations)
@@ -291,6 +303,12 @@ namespace Ombudsman.DataLayer.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("hl_user_role_id_fkey");
+
+                entity.HasOne(d => d.State)
+                    .WithMany(p => p.HlUsers)
+                    .HasForeignKey(d => d.StateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("hl_user_state_id_fkey");
             });
 
             modelBuilder.Entity<InfoDocumentImportance>(entity =>

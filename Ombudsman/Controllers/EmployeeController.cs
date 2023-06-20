@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Ombudsman.BizLogicLayer;
 using Ombudsman.Core.Models;
 
 namespace Ombudsman.Api.Controllers;
-
+[Authorize]
 public class EmployeeController : BaseController
 {
     private readonly IEmployeeService service;

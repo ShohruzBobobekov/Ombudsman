@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,12 +30,19 @@ namespace Ombudsman.DataLayer.Models
         [StringLength(100)]
         public string FullName { get; set; } = null!;
 
+        [InverseProperty("Language")]
         public virtual ICollection<EnumDocumentRealizerTypeTranslate> EnumDocumentRealizerTypeTranslates { get; set; }
+        [InverseProperty("Language")]
         public virtual ICollection<EnumDocumentStateTranlate> EnumDocumentStateTranlates { get; set; }
+        [InverseProperty("Language")]
         public virtual ICollection<EnumDocumentTypeTranslate> EnumDocumentTypeTranslates { get; set; }
+        [InverseProperty("Language")]
         public virtual ICollection<EnumGovernmentOrganizationTypeTranslate> EnumGovernmentOrganizationTypeTranslates { get; set; }
+        [InverseProperty("Language")]
         public virtual ICollection<EnumInitiativeTypeTranslate> EnumInitiativeTypeTranslates { get; set; }
+        [InverseProperty("Language")]
         public virtual ICollection<EnumStateTranslate> EnumStateTranslates { get; set; }
+        [InverseProperty("Language")]
         public virtual ICollection<InfoDocumentImportanceTranslate> InfoDocumentImportanceTranslates { get; set; }
     }
 }

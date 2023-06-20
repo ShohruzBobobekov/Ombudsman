@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +11,7 @@ namespace Ombudsman.DataLayer.Models
     {
         public EnumDocumentState()
         {
+            DocDocumentRealizations = new HashSet<DocDocumentRealization>();
             EnumDocumentStateTranlates = new HashSet<EnumDocumentStateTranlate>();
         }
 
@@ -30,7 +31,11 @@ namespace Ombudsman.DataLayer.Models
         public int StateId { get; set; }
 
         [ForeignKey("StateId")]
+        [InverseProperty("EnumDocumentStates")]
         public virtual EnumState State { get; set; } = null!;
+        [InverseProperty("DocumentState")]
+        public virtual ICollection<DocDocumentRealization> DocDocumentRealizations { get; set; }
+        [InverseProperty("Owner")]
         public virtual ICollection<EnumDocumentStateTranlate> EnumDocumentStateTranlates { get; set; }
     }
 }

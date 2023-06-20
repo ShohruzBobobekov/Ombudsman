@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Ombudsman.BizLogicLayer;
 
 namespace Ombudsman.Api.Controllers;
-
+[Authorize]
 public class DocumentRealizationController : BaseController
 {
     private readonly IDocumentRealizationService service;

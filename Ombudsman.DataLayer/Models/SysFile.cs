@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,6 +24,7 @@ namespace Ombudsman.DataLayer.Models
         [StringLength(10)]
         public string Extension { get; set; } = null!;
 
+        [InverseProperty("File")]
         public virtual ICollection<DocDocumentRealization> DocDocumentRealizations { get; set; }
     }
 }

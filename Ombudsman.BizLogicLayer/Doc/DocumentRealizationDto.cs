@@ -30,10 +30,12 @@ public class DocumentRealizationDto
     public DateTime? UpdatedAt { get; set; }
     public int? UpdatedUserId { get; set; }
     public string FileName { get; set; }
+    public int DocumentStateId { get; set; }
+    public DocumentStateDto DocumentState { get; set; }
 
     public DocumentTypeDto DocumentType { get; set; }
     public DocumentImportanceDto Importance { get; set; }
-    public virtual InitiativeType InitiativeType { get; set; }
+    public virtual InitiativeTypeDto InitiativeType { get; set; }
     public virtual SectorDto ResponsibleSector { get; set; }
     public virtual StateDto State { get; set; }
     public virtual ICollection<DocumentRealizationTableDto> Tables { get; set; }

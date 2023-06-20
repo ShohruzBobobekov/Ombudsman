@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +34,7 @@ namespace Ombudsman.DataLayer.Models
         public int OwnerId { get; set; }
 
         [ForeignKey("OwnerId")]
+        [InverseProperty("DocDocumentRealizationTables")]
         public virtual DocDocumentRealization Owner { get; set; } = null!;
     }
 }

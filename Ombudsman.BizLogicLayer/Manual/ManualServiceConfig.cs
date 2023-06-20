@@ -12,9 +12,9 @@ public class ManualServiceConfig : Profile
 /*    public ManualServiceConfig()
     {
     }*/
-    public ManualServiceConfig()
+    public ManualServiceConfig(IAuthService authService)
     {
-       //this.authService = authService;
+       this.authService = authService;
 
         CreateMap<DocumentImportance, DocumentImportanceDto>();
         //.ForMember(dto => dto.FullName, cfg => cfg

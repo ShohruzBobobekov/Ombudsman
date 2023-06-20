@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -60,12 +60,16 @@ namespace Ombudsman.DataLayer.Models
         public int InitiativeTypeId { get; set; }
         [Column("state_id")]
         public int StateId { get; set; }
+        [Column("organization_id")]
+        public int OrganizationId { get; set; }
         [Column("full_name")]
         [StringLength(200)]
         public string FullName { get; set; } = null!;
         [Column("short_name")]
         [StringLength(200)]
         public string ShortName { get; set; } = null!;
+        [Column("document_state_id")]
+        public int DocumentStateId { get; set; }
         [Column("created_at", TypeName = "timestamp without time zone")]
         public DateTime CreatedAt { get; set; }
         [Column("created_user_id")]
@@ -75,19 +79,33 @@ namespace Ombudsman.DataLayer.Models
         [Column("updated_user_id")]
         public int? UpdatedUserId { get; set; }
 
+        [ForeignKey("DocumentStateId")]
+        [InverseProperty("DocDocumentRealizations")]
+        public virtual EnumDocumentState DocumentState { get; set; } = null!;
         [ForeignKey("DocumentTypeId")]
+        [InverseProperty("DocDocumentRealizations")]
         public virtual EnumDocumentType DocumentType { get; set; } = null!;
         [ForeignKey("FileId")]
+        [InverseProperty("DocDocumentRealizations")]
         public virtual SysFile? File { get; set; }
         [ForeignKey("ImportanceId")]
+        [InverseProperty("DocDocumentRealizations")]
         public virtual InfoDocumentImportance Importance { get; set; } = null!;
         [ForeignKey("InitiativeTypeId")]
+        [InverseProperty("DocDocumentRealizations")]
         public virtual EnumInitiativeType InitiativeType { get; set; } = null!;
+        [ForeignKey("OrganizationId")]
+        [InverseProperty("DocDocumentRealizations")]
+        public virtual InfoOrganization Organization { get; set; } = null!;
         [ForeignKey("ResponsibleSectorId")]
+        [InverseProperty("DocDocumentRealizations")]
         public virtual InfoSector ResponsibleSector { get; set; } = null!;
         [ForeignKey("StateId")]
+        [InverseProperty("DocDocumentRealizations")]
         public virtual EnumState State { get; set; } = null!;
+        [InverseProperty("Owner")]
         public virtual ICollection<DocDocumentRealizationTable> DocDocumentRealizationTables { get; set; }
+        [InverseProperty("Owner")]
         public virtual ICollection<DocInformationLetter> DocInformationLetters { get; set; }
     }
 }

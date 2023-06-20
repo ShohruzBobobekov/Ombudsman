@@ -17,6 +17,7 @@ internal class UnitOfWork : IUnitOfWork
 
     public async Task<IDbContextTransaction> BeginTransaction()
     {
+        Context.Database.CreateExecutionStrategy();
         return await Context.Database.BeginTransactionAsync();
     }
 

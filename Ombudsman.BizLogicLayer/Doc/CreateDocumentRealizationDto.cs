@@ -25,6 +25,8 @@ public class CreateDocumentRealizationDto
     public int StateId { get; set; }
     public string FullName { get; set; }
     public string ShortName { get; set; }
+    public int DocumentStateId { get; set; }
+    public int OrganizationId { get; set; }
     public CreateInformationLetterDto InformationLetter { get; set; }
     public List<CreateDocumentRealizationTableDto> DocumentRealizationTables { get; set; }
 }

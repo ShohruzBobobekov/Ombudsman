@@ -33,3 +33,11 @@ public partial class DocumentState
     public virtual State State { get; set; } = null!;
     public virtual ICollection<DocumentStateTranslate> Translates { get; set; }
 }
+public static class DocumentStateIdConst
+{
+    public const int LOYIHALANGAN = 1;
+    public const int KIRITILGAN = 2;
+    public const int RAD_YETILGAN = 3;
+    public const int TASDIQLANGAN = 4;
+    public const int KUCHGA_KIRGAN = 5;
+}

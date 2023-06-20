@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,6 +37,8 @@ namespace Ombudsman.DataLayer.Models
         public string? Salt { get; set; }
         [Column("language_id")]
         public int LanguageId { get; set; }
+        [Column("state_id")]
+        public int StateId { get; set; }
         [Column("organization_id")]
         public int OrganizationId { get; set; }
         [Column("refresh_token")]
@@ -54,8 +56,13 @@ namespace Ombudsman.DataLayer.Models
         public int? UpdatedUserId { get; set; }
 
         [ForeignKey("OrganizationId")]
+        [InverseProperty("HlUsers")]
         public virtual InfoOrganization Organization { get; set; } = null!;
         [ForeignKey("RoleId")]
+        [InverseProperty("HlUsers")]
         public virtual EnumUserRole Role { get; set; } = null!;
+        [ForeignKey("StateId")]
+        [InverseProperty("HlUsers")]
+        public virtual EnumState State { get; set; } = null!;
     }
 }

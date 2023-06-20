@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+using Ombudsman.BizLogicLayer.Auth;
 using Ombudsman.Core.Models;
 using Ombudsman.DataLayer;
 
@@ -10,21 +11,25 @@ internal class OrganizationService : IOrganizationService
     private readonly IOrganizationRepository repository;
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
+    private readonly IAuthService auth;
 
     public OrganizationService(
         IOrganizationRepository repository,
         IUnitOfWork unitOfWork,
-        IMapper mapper)
+        IMapper mapper,
+        IAuthService auth)
     {
         this.repository = repository;
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
+        this.auth = auth;
     }
 
     public async ValueTask<int> Create(CreateOrganizationDto dto)
     {
         var entity = mapper.Map<Organization>(dto);
         entity.CreatedAt = DateTime.Now;
+        entity.CreatedUserId = auth.User.Id;
         entity.StateId = StateIdConst.ACTIVE;
         entity = await repository.InsertAsync(entity);
         await unitOfWork.Save();
@@ -56,6 +61,8 @@ internal class OrganizationService : IOrganizationService
     {
         var entity = await repository.SelectByIdAsync(dto.Id);
         entity = mapper.Map(dto, entity);
+        entity.UpdatedUserId = auth.User.Id;
+        entity.UpdatedAt = DateTime.Now;
         await unitOfWork.Save();
         return entity.Id;
     }

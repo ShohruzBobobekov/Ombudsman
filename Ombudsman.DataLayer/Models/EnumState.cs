@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +18,7 @@ namespace Ombudsman.DataLayer.Models
             EnumGovernmentOrganizationTypes = new HashSet<EnumGovernmentOrganizationType>();
             EnumStateTranslates = new HashSet<EnumStateTranslate>();
             EnumUserRoles = new HashSet<EnumUserRole>();
+            HlUsers = new HashSet<HlUser>();
             InfoDocumentImportances = new HashSet<InfoDocumentImportance>();
             InfoOrganizations = new HashSet<InfoOrganization>();
             InfoSectors = new HashSet<InfoSector>();
@@ -34,16 +35,29 @@ namespace Ombudsman.DataLayer.Models
         [StringLength(100)]
         public string? FullName { get; set; }
 
+        [InverseProperty("State")]
         public virtual ICollection<DocDocumentRealization> DocDocumentRealizations { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<EnumDocumentRealizerType> EnumDocumentRealizerTypes { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<EnumDocumentState> EnumDocumentStates { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<EnumDocumentType> EnumDocumentTypes { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<EnumGovernmentOrganizationType> EnumGovernmentOrganizationTypes { get; set; }
+        [InverseProperty("Owner")]
         public virtual ICollection<EnumStateTranslate> EnumStateTranslates { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<EnumUserRole> EnumUserRoles { get; set; }
+        [InverseProperty("State")]
+        public virtual ICollection<HlUser> HlUsers { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<InfoDocumentImportance> InfoDocumentImportances { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<InfoOrganization> InfoOrganizations { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<InfoSector> InfoSectors { get; set; }
+        [InverseProperty("State")]
         public virtual ICollection<InfoStateProgram> InfoStatePrograms { get; set; }
     }
 }

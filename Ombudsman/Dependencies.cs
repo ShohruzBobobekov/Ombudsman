@@ -1,5 +1,7 @@
 ﻿using System.Text;
 
+using DateOnlyTimeOnly.AspNet.Converters;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
@@ -16,7 +18,11 @@ public static class Dependencies
     {
         services.Configure<JwtOption>(configuration.GetSection("JwtOptions"));
 
-        services.AddControllers();
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+            });
         services.AddEndpointsApiExplorer();
 
         services.AddAuthentication(options =>
@@ -54,7 +60,6 @@ public static class Dependencies
                 Format = "date-time",
                 Example = new OpenApiDateTime(DateTime.Now)
             });
-
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {

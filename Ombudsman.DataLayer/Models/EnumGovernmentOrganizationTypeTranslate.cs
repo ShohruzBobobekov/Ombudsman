@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,8 +24,10 @@ namespace Ombudsman.DataLayer.Models
         public string TranslateText { get; set; } = null!;
 
         [ForeignKey("LanguageId")]
+        [InverseProperty("EnumGovernmentOrganizationTypeTranslates")]
         public virtual EnumLanguage Language { get; set; } = null!;
         [ForeignKey("OwnerId")]
+        [InverseProperty("EnumGovernmentOrganizationTypeTranslates")]
         public virtual EnumGovernmentOrganizationType Owner { get; set; } = null!;
     }
 }
